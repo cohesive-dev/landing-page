@@ -1,10 +1,10 @@
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-[#fbfbfb]">
       {/* Header */}
-      <header className="bg-white/95 backdrop-blur-sm shadow-sm relative z-10">
+      <header className="fixed top-0 left-0 right-0 transition-all duration-300 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
+          <div className="flex justify-between items-center py-4 transition-all duration-300" id="header-content">
             <h1 className="text-2xl font-bold text-indigo-600">Cohesive AI</h1>
 
             <nav className="hidden md:flex space-x-8">
@@ -20,45 +20,56 @@ export default function Home() {
         </div>
       </header>
 
+      <script dangerouslySetInnerHTML={{
+        __html: `
+        window.addEventListener('scroll', function() {
+      const header = document.querySelector('header');
+      const headerContent = document.getElementById('header-content');
+      
+      if (window.scrollY > 50) {
+        headerContent.classList.add('bg-white/10', 'backdrop-blur-sm', 'border', 'border-white/20', 'rounded-full', 'shadow-[0_8px_32px_rgba(0,0,0,0.2)]', 'mx-4', 'px-6');
+      } else {
+        headerContent.classList.remove('bg-white/10', 'backdrop-blur-sm', 'border', 'border-white/20', 'rounded-full', 'shadow-[0_8px_32px_rgba(0,0,0,0.2)]', 'mx-4', 'px-6');
+      }
+        });
+      `
+      }} />
+
       {/* ============================================================= */}
       <section className="relative py-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* HERO IMAGE BACKGROUND */}
-        <div className="absolute inset-0 z-0 flex justify-center bg-[#fbfbfb]">
+        <div className="flex flex-col w-full justify-center items-center max-w-5xl mx-auto text-center relative mb-150 z-10">
+          {/* HEADLINE */}
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight drop-shadow-lg">
+            Sell to prospects in
+            <span className="text-indigo-600 block md:inline"> your neighborhood</span>
+          </h1>
+
+          {/* SUBHEAD */}
+          <p className="text-xl text-gray-800 mb-10 max-w-3xl mx-auto leading-relaxed drop-shadow">
+            Turn local leads into commercial clients. Built for cleaners, HVAC pros, roofers, and other skilled trade professionals.
+          </p>
+
+          {/* CTA BUTTONS */}
+          <div className="relative overflow-hidden rounded-full bg-white/10 backdrop-blur-sm border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.2)] w-[200px] p-4">
+            <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent opacity-40"></div>
+            <div className="relative z-10">
+              Request A Demo
+            </div>
+          </div>
+        </div>
+
+        <div className="absolute inset-0 z-0 justify-center bg-[#fbfbfb] top-25">
           <img
             src="/hero-city-lg.jpeg"
             alt="Hero Illustration"
-            className="h-ful object-cover object-center"
+            className="w-full object-cover object-center"
           />
 
           {/* Gradient overlay to enhance image & text contrast */}
           {/* <div className="absolute inset-0 bg-gradient-to-t from-white/60 via-white/20 to-transparent"></div> */}
         </div>
-
-        <div className="max-w-5xl mx-auto text-center relative mb-120 z-10">
-          {/* HEADLINE */}
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight drop-shadow-lg">
-            The AI-Native CRM for
-            <span className="text-indigo-600 block md:inline"> Skilled Trade Services</span>
-          </h1>
-
-          {/* SUBHEAD */}
-          <p className="text-xl text-gray-800 mb-10 max-w-3xl mx-auto leading-relaxed drop-shadow">
-            Streamline operations, manage customers, and grow your trade business
-            with intelligent automation built specifically for contractors, plumbers,
-            electricians, and field service teams.
-          </p>
-
-          {/* CTA BUTTONS */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <button className="bg-indigo-600 text-white px-8 py-3 rounded-lg text-lg hover:bg-indigo-700 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
-              Start Free Trial
-            </button>
-            <button className="border-2 border-indigo-300 text-indigo-700 px-8 py-3 rounded-lg text-lg bg-white/70 backdrop-blur-sm hover:bg-white/90 transition-all duration-300 shadow">
-              Watch Demo
-            </button>
-          </div>
-        </div>
-      </section>
+      </section >
 
       {/* ============================================================= */}
       {/*                         FEATURES SECTION                       */}
@@ -205,6 +216,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-    </div>
+    </div >
   );
 }
