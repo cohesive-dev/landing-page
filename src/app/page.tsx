@@ -1,221 +1,302 @@
-export default function Home() {
-  return (
-    <div className="min-h-screen bg-[#fbfbfb]">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 transition-all duration-300 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4 transition-all duration-300" id="header-content">
-            <h1 className="text-2xl font-bold text-indigo-600">Cohesive AI</h1>
+"use client";
 
-            <nav className="hidden md:flex space-x-8">
-              <a href="#features" className="text-gray-700 hover:text-indigo-600">Features</a>
-              <a href="#about" className="text-gray-700 hover:text-indigo-600">About</a>
-              <a href="#contact" className="text-gray-700 hover:text-indigo-600">Contact</a>
+import { useEffect, useRef, useState } from "react";
+import GlassyButton from "@/components/GlassyButton";
+import CalendlyModal from "@/components/CalendlyModal";
+import { ScheduleAnim, CustomerAnim, EstimateAnim, InvoiceAnim, AnalyticsAnim, MobileAnim } from "@/components/FeatureAnimations";
+
+export default function Home() {
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [showCalendly, setShowCalendly] = useState(false);
+
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+
+    const update = () => {
+      const t = Math.min(window.scrollY / 100, 1);
+      const blur = Math.round(12 + t * 40);
+      const bg = (0.15 + t * 0.55).toFixed(2);
+      const maxW = 80;
+      const val = `blur(${blur}px) saturate(180%)`;
+      header.style.backdropFilter = val;
+      (header.style as unknown as Record<string, string>).webkitBackdropFilter = val;
+      header.style.background = `rgba(255, 255, 255, ${bg})`;
+      header.style.maxWidth = `${maxW}rem`;
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-[#fefdfd]">
+      {/* Header */}
+      <header className="fixed top-4 left-4 right-4 z-50">
+        <div ref={headerRef} className="mx-auto liquid-glass px-4 py-2 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]" style={{ maxWidth: '100rem', borderRadius: '9999px' }}>
+          <div className="flex justify-between items-center">
+            <h1 className="text-2xl font-normal italic text-[#2141EC] py-1 px-1" style={{ fontFamily: 'var(--font-playfair)' }}>Cohesive</h1>
+
+            <nav className="hidden md:flex items-center bg-white/40 rounded-full px-1 py-1 gap-1">
+              <a href="#features" className="text-gray-700 hover:text-[#2141EC] hover:bg-white/60 transition-all font-medium px-4 py-1.5 rounded-full">Features</a>
+              <a href="#about" className="text-gray-700 hover:text-[#2141EC] hover:bg-white/60 transition-all font-medium px-4 py-1.5 rounded-full">About</a>
+              <a href="#contact" className="text-gray-700 hover:text-[#2141EC] hover:bg-white/60 transition-all font-medium px-4 py-1.5 rounded-full">Contact</a>
             </nav>
 
-            <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition">
+            <button onClick={() => setShowCalendly(true)} className="bg-[#2141EC] text-white px-5 py-2.5 hover:bg-[#1a35bd] transition-all duration-200 font-medium shadow-lg shadow-[#2141EC]/25 hover:shadow-[#2141EC]/40 hover:scale-105 cursor-pointer" style={{ borderRadius: '9999px' }}>
               Get Started
             </button>
           </div>
         </div>
       </header>
 
-      <script dangerouslySetInnerHTML={{
-        __html: `
-        window.addEventListener('scroll', function() {
-      const header = document.querySelector('header');
-      const headerContent = document.getElementById('header-content');
-      
-      if (window.scrollY > 50) {
-        headerContent.classList.add('bg-white/10', 'backdrop-blur-sm', 'border', 'border-white/20', 'rounded-full', 'shadow-[0_8px_32px_rgba(0,0,0,0.2)]', 'mx-4', 'px-6');
-      } else {
-        headerContent.classList.remove('bg-white/10', 'backdrop-blur-sm', 'border', 'border-white/20', 'rounded-full', 'shadow-[0_8px_32px_rgba(0,0,0,0.2)]', 'mx-4', 'px-6');
-      }
-        });
-      `
-      }} />
-
+      {/* ============================================================= */}
+      {/*                         HERO SECTION                           */}
       {/* ============================================================= */}
       <section className="relative py-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        {/* HERO IMAGE BACKGROUND */}
-        <div className="flex flex-col w-full justify-center items-center max-w-5xl mx-auto text-center relative mb-150 z-10">
-          {/* HEADLINE */}
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight drop-shadow-lg">
-            Sell to prospects in
-            <span className="text-indigo-600 block md:inline"> your neighborhood</span>
+        {/* Hero content */}
+        <div className="flex flex-col w-full justify-center items-center max-w-5xl mx-auto text-center relative mb-180 z-10">
+          {/* Badge */}
+          <div className="animate-fade-up inline-flex items-center gap-2 bg-[#2141EC]/5 border border-[#2141EC]/10 rounded-full px-4 py-1.5 mb-8">
+            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+            <span className="text-sm font-medium text-[#1a35bd]">AI-Powered CRM for Trade Pros</span>
+          </div>
+
+          {/* Headline */}
+          <h1 className="animate-fade-up-delay text-4xl md:text-6xl font-extrabold text-gray-900 mb-5 leading-[1.15] tracking-[-0.02em]">
+            Automate local
+            <span className="gradient-text block italic py-1" style={{ fontFamily: 'var(--font-playfair)' }}> business growth</span>
           </h1>
 
-          {/* SUBHEAD */}
-          <p className="text-xl text-gray-800 mb-10 max-w-3xl mx-auto leading-relaxed drop-shadow">
-            Turn local leads into commercial clients. Built for cleaners, HVAC pros, roofers, and other skilled trade professionals.
+          {/* Subhead */}
+          <p className="animate-fade-up-delay-2 text-base md:text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+            Completely automated lead generation and marketing to local businesses. Fully done for you on auto-pilot.
           </p>
 
-          {/* CTA BUTTONS */}
-          <div className="relative overflow-hidden rounded-full bg-white/10 backdrop-blur-sm border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.2)] w-[200px] p-4">
-            <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent opacity-40"></div>
-            <div className="relative z-10">
-              Request A Demo
-            </div>
+          {/* CTA Buttons */}
+          <div className="animate-fade-up-delay-2">
+            <GlassyButton />
           </div>
         </div>
 
-        <div className="absolute inset-0 z-0 justify-center bg-[#fbfbfb] top-25">
+        {/* Background image */}
+        <div className="absolute inset-0 z-0 justify-center bg-[#fefdfd] top-[70vh] sm:top-[60vh] md:top-80">
           <img
-            src="/hero-city-lg.jpeg"
+            src="/hero-image-v8.png"
             alt="Hero Illustration"
-            className="w-full object-cover object-center"
+            className="w-full object-cover object-center animate-fade-in"
+            style={{
+              maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 10%, rgba(0,0,0,0.8) 20%, black 35%, black 70%, transparent 95%), linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)',
+              maskComposite: 'intersect',
+              WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 10%, rgba(0,0,0,0.8) 20%, black 35%, black 70%, transparent 95%), linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)',
+              WebkitMaskComposite: 'destination-in',
+            }}
           />
-
-          {/* Gradient overlay to enhance image & text contrast */}
-          {/* <div className="absolute inset-0 bg-gradient-to-t from-white/60 via-white/20 to-transparent"></div> */}
         </div>
-      </section >
+      </section>
+
+      {/* ============================================================= */}
+      {/*                      LOGO MARQUEE                              */}
+      {/* ============================================================= */}
+      <div className="relative z-10 mt-10 overflow-hidden pb-12">
+        <p className="text-center text-sm font-medium text-gray-400 uppercase tracking-widest mb-6">Trusted by 800+ contractors</p>
+        <div className="relative">
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#fefdfd] to-transparent z-10"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#fefdfd] to-transparent z-10"></div>
+          <div className="flex animate-marquee gap-28 items-center w-max">
+            {[0, 1].map((copy) =>
+              [
+                "/anago.avif",
+                "/corporate_cleaning.avif",
+                "/gotflow.webp",
+                "/janpro.avif",
+                "/kitchenguard.avif",
+                "/rolling_suds.avif",
+                "/service_master.webp",
+              ].map((src, i) => (
+                <img key={`${copy}-${i}`} src={src} alt="" className="h-12 object-contain opacity-70 hover:opacity-100 transition-all duration-300 shrink-0" />
+              ))
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* ============================================================= */}
+      {/*                    PRODUCT SCREENSHOT                          */}
+      {/* ============================================================= */}
+      <section className="relative z-10 py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <p className="text-sm font-semibold text-[#2141EC] uppercase tracking-widest mb-3">See it in action</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">
+              Your leads, organized and <span className="italic" style={{ fontFamily: 'var(--font-playfair)' }}>ready to close</span>
+            </h2>
+          </div>
+          <div className="rounded-2xl overflow-hidden shadow-2xl shadow-[#2141EC]/10 border border-gray-200 ring-1 ring-black/5">
+            <img
+              src="/product_screenshot_1.png"
+              alt="Cohesive CRM dashboard showing leads and contacts"
+              className="w-full"
+            />
+          </div>
+        </div>
+      </section>
+
 
       {/* ============================================================= */}
       {/*                         FEATURES SECTION                       */}
       {/* ============================================================= */}
-      <section id="features" className="py-20 bg-white">
+      <section id="features" className="py-24 bg-gradient-to-b from-gray-50/50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <p className="text-sm font-semibold text-[#2141EC] uppercase tracking-widest mb-3">Features</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
               Built for Trade Professionals
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-500 max-w-2xl mx-auto">
               Everything you need to manage your trade business efficiently and profitably
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <div className="p-6 rounded-lg border border-gray-200 hover:shadow-lg transition">
-              <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Smart Scheduling</h3>
-              <p className="text-gray-600">AI-powered scheduling that optimizes routes and maximizes your daily productivity.</p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="feature-card p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
+              <CustomerAnim />
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Hyper-Local Leads</h3>
+              <p className="text-gray-500 leading-relaxed">Discover businesses in your neighborhood ready to buy. Targeted, local leads delivered straight to your pipeline.</p>
             </div>
 
-            {/* Feature 2 */}
-            <div className="p-6 rounded-lg border border-gray-200 hover:shadow-lg transition">
-              <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0zM7 10a2 2 0 11-4 0 2 2 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Customer Management</h3>
-              <p className="text-gray-600">Track customer history, preferences, and automate follow-ups to build lasting relationships.</p>
+            <div className="feature-card p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
+              <ScheduleAnim />
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Best-Practice Email</h3>
+              <p className="text-gray-500 leading-relaxed">Warm inboxes, dynamic send schedules, and proven templates that land in the inbox — not spam.</p>
             </div>
 
-            {/* Feature 3 */}
-            <div className="p-6 rounded-lg border border-gray-200 hover:shadow-lg transition">
-              <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Intelligent Estimates</h3>
-              <p className="text-gray-600">Generate accurate quotes instantly with AI that learns from your past jobs and market rates.</p>
+            <div className="feature-card p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
+              <EstimateAnim />
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Parallel Dialer</h3>
+              <p className="text-gray-500 leading-relaxed">Call multiple prospects at once and connect with the first to pick up. 5x your outreach in half the time.</p>
             </div>
 
-            {/* Feature 4 */}
-            <div className="p-6 rounded-lg border border-gray-200 hover:shadow-lg transition">
-              <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Automated Invoicing</h3>
-              <p className="text-gray-600">Create professional invoices automatically and get paid faster with integrated payments.</p>
+            <div className="feature-card p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
+              <InvoiceAnim />
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Automated Follow-Ups</h3>
+              <p className="text-gray-500 leading-relaxed">Never let a lead go cold. Smart sequences follow up across email, phone, and SMS on autopilot.</p>
             </div>
 
-            {/* Feature 5 */}
-            <div className="p-6 rounded-lg border border-gray-200 hover:shadow-lg transition">
-              <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Business Analytics</h3>
-              <p className="text-gray-600">Make data-driven decisions with insights on revenue, efficiency, and growth trends.</p>
+            <div className="feature-card p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
+              <AnalyticsAnim />
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Analytics</h3>
+              <p className="text-gray-500 leading-relaxed">Track open rates, call outcomes, and pipeline health. Know exactly what&apos;s working and double down.</p>
             </div>
 
-            {/* Feature 6 */}
-            <div className="p-6 rounded-lg border border-gray-200 hover:shadow-lg transition">
-              <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Mobile App</h3>
-              <p className="text-gray-600">Access everything on-the-go with a mobile app designed for the field.</p>
+            <div className="feature-card p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
+              <MobileAnim />
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">24/7 Notifications</h3>
+              <p className="text-gray-500 leading-relaxed">Get instant alerts on mobile and SMS when a lead responds. Never miss a hot prospect, even in the field.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-indigo-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Ready to Transform Your Trade Business?
+      {/* ============================================================= */}
+      {/*                         ABOUT SECTION                          */}
+      {/* ============================================================= */}
+      <section id="about" className="py-24 bg-gradient-to-b from-white to-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <p className="text-sm font-semibold text-[#2141EC] uppercase tracking-widest mb-3">About us</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">
+              Built by people who <span className="italic" style={{ fontFamily: 'var(--font-playfair)' }}>get it</span>
+            </h2>
+          </div>
+
+          <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
+            <p>
+              We&apos;re a team of engineers, marketers, and former skilled trade business owners. We didn&apos;t just study this industry from the outside — we&apos;ve lived it. We&apos;ve driven the trucks, quoted the jobs, chased the invoices, and felt the frustration of watching leads slip through the cracks because our tools weren&apos;t built for the way we actually work.
+            </p>
+            <p>
+              We know what it&apos;s like to juggle a growing client base with a phone full of sticky-note reminders. To spend your evenings doing admin instead of spending time with your family. To lose a commercial contract to a competitor simply because they followed up first.
+            </p>
+            <p>
+              That&apos;s why we built Cohesive. Not another generic CRM crammed with features you&apos;ll never use — but a purpose-built platform designed around the real workflows of HVAC technicians, roofers, cleaners, plumbers, and every other trade professional out there grinding to grow their business.
+            </p>
+            <p className="text-gray-900 font-medium">
+              We&apos;re building the tool we wish we had. And we&apos;re just getting started.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================= */}
+      {/*                         CTA SECTION                            */}
+      {/* ============================================================= */}
+      <section className="py-24 bg-gradient-to-br from-[#2141EC] via-[#1b2d8a] to-[#0a0f2e] relative overflow-hidden">
+        {/* Decorative blobs */}
+        <div className="absolute top-0 left-0 w-96 h-96 bg-[#4f6af0]/20 rounded-full -translate-x-1/3 -translate-y-1/3 blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#2141EC]/15 rounded-full translate-x-1/4 translate-y-1/4 blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#4f6af0]/10 rounded-full blur-3xl"></div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
+            Ready to <span className="italic" style={{ fontFamily: 'var(--font-playfair)' }}>Transform</span> Your Trade Business?
           </h2>
-          <p className="text-xl text-indigo-200 mb-8 max-w-2xl mx-auto">
-            Join thousands of contractors who have streamlined operations with Cohesive AI.
+          <p className="text-lg text-blue-100 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Join thousands of contractors who have streamlined operations with Cohesive.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-indigo-600 px-8 py-3 rounded-md text-lg hover:bg-gray-100 transition font-semibold">
+            <button onClick={() => setShowCalendly(true)} className="bg-white text-[#2141EC] px-8 py-4 rounded-full text-lg hover:bg-gray-50 transition-all duration-200 font-semibold shadow-xl hover:shadow-2xl hover:scale-105 cursor-pointer">
               Start Your Free Trial
             </button>
-            <button className="border-2 border-white text-white px-8 py-3 rounded-md text-lg hover:bg-white hover:text-indigo-600 transition">
+            <button onClick={() => setShowCalendly(true)} className="border-2 border-white/30 text-white px-8 py-4 rounded-full text-lg hover:bg-white/10 backdrop-blur-sm transition-all duration-200 font-medium cursor-pointer">
               Schedule Demo
             </button>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
+      {/* ============================================================= */}
+      {/*                         FOOTER                                 */}
+      {/* ============================================================= */}
+      <footer className="bg-gradient-to-b from-[#0a0f2e] to-[#060a1a] text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-4 gap-10">
             <div>
-              <h3 className="text-xl font-bold mb-4">Cohesive AI</h3>
-              <p className="text-gray-400">
+              <h3 className="text-xl font-normal italic text-white mb-4 py-1 px-1" style={{ fontFamily: 'var(--font-playfair)' }}>Cohesive</h3>
+              <p className="text-gray-400 leading-relaxed">
                 The AI-native CRM built specifically for skilled trade services.
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Product</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white">Features</a></li>
-                <li><a href="#" className="hover:text-white">Pricing</a></li>
-                <li><a href="#" className="hover:text-white">Demo</a></li>
+              <h4 className="font-semibold mb-4 text-gray-200">Product</h4>
+              <ul className="space-y-3 text-gray-400">
+                <li><a href="#features" className="hover:text-white transition-colors">Features</a></li>
+                <li><a href="#about" className="hover:text-white transition-colors">About</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Company</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white">About</a></li>
-                <li><a href="#" className="hover:text-white">Blog</a></li>
-                <li><a href="#" className="hover:text-white">Careers</a></li>
+              <h4 className="font-semibold mb-4 text-gray-200">Company</h4>
+              <ul className="space-y-3 text-gray-400">
+                <li><a href="/blog" className="hover:text-white transition-colors">Blog</a></li>
+                <li><a href="/careers" className="hover:text-white transition-colors">Careers</a></li>
+                <li><a href="/whitelabel" className="hover:text-white transition-colors">Whitelabel Partnership</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Support</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white">Help Center</a></li>
-                <li><a href="#" className="hover:text-white">Contact</a></li>
-                <li><a href="#" className="hover:text-white">Privacy</a></li>
+              <h4 className="font-semibold mb-4 text-gray-200">Contact</h4>
+              <ul className="space-y-3 text-gray-400">
+                <li><a href="mailto:admin@cohesiveapp.com" className="hover:text-white transition-colors">admin@cohesiveapp.com</a></li>
               </ul>
             </div>
           </div>
 
-          <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 Cohesive AI. All rights reserved.</p>
+          <div className="border-t border-[#2141EC]/15 mt-12 pt-8 text-center text-gray-500 text-sm">
+            <p>&copy; 2025 Cohesive. All rights reserved.</p>
           </div>
         </div>
       </footer>
-    </div >
+
+      {showCalendly && <CalendlyModal onClose={() => setShowCalendly(false)} />}
+    </div>
   );
 }

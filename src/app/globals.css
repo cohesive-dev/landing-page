@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
   --background: #ffffff;
@@ -12,15 +13,173 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-jakarta), Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-space-grotesk), Arial, Helvetica, sans-serif;
+}
+
+/* Liquid glass effect */
+.liquid-glass {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15),
+              inset 0 4px 20px rgba(255, 255, 255, 0.3);
+}
+
+.liquid-glass::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: inherit;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  box-shadow: inset -10px -8px 0px -11px rgba(255, 255, 255, 1),
+              inset 0px -9px 0px -8px rgba(255, 255, 255, 1);
+  opacity: 0.6;
+  z-index: -1;
+  filter: blur(1px) brightness(115%);
+  pointer-events: none;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hero fade-in animations */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s ease-out both;
+}
+
+.animate-fade-up-delay {
+  animation: fade-up 0.8s ease-out 0.2s both;
+}
+
+.animate-fade-up-delay-2 {
+  animation: fade-up 0.8s ease-out 0.4s both;
+}
+
+.animate-fade-in {
+  animation: fade-in 1.2s ease-out 0.6s both;
+}
+
+/* Feature animation keyframes */
+@keyframes slideUp {
+  0%, 100% { transform: translateY(5px); opacity: 0.7; }
+  50% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes cardStack {
+  0%, 100% { transform: translateY(var(--ty, 0)) scale(var(--sc, 1)); }
+  50% { transform: translateY(calc(var(--ty, 0) - 4px)) scale(var(--sc, 1)); }
+}
+
+@keyframes expandWidth {
+  0% { transform: scaleX(0); transform-origin: left; }
+  50%, 100% { transform: scaleX(1); transform-origin: left; }
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; }
+  30%, 70% { opacity: 1; }
+}
+
+@keyframes invoiceSlide {
+  0% { transform: translateX(-20px) translateY(10px) rotate(-5deg); opacity: 0; }
+  30%, 70% { transform: translateX(0) translateY(0) rotate(0); opacity: 1; }
+  100% { transform: translateX(20px) translateY(-10px); opacity: 0; }
+}
+
+@keyframes checkPop {
+  0%, 25% { transform: scale(0); opacity: 0; }
+  40% { transform: scale(1.2); opacity: 1; }
+  50%, 70% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+@keyframes growBar {
+  0% { transform: scaleY(0.3); transform-origin: bottom; }
+  50%, 100% { transform: scaleY(1); transform-origin: bottom; }
+}
+
+@keyframes drawLine {
+  0% { stroke-dashoffset: 200; }
+  50%, 100% { stroke-dashoffset: 0; }
+}
+
+@keyframes phoneBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes slideRight {
+  0% { transform: translateX(-100%); opacity: 0; }
+  30%, 100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes ripple {
+  0% { transform: scale(0.8); opacity: 0.4; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Feature card hover lift */
+.feature-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(33, 65, 236, 0.15);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #2141EC, #4f6af0, #7b8ff5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Subtle floating animation for decorative elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Marquee scrolling */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
 }
