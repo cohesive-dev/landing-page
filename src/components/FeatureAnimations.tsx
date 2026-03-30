@@ -128,7 +128,7 @@ export function AnalyticsAnim() {
           animation: `growBar 2.5s ease-out ${i * 0.1}s infinite`,
         }}>
           <div className="absolute bottom-0 left-0 right-0 bg-[#2141EC]/40 rounded-t-md" style={{
-            height: `${60 + Math.random() * 30}%`,
+            height: `${60 + ((i * 17 + 7) % 30)}%`,
             animation: `growBar 2.5s ease-out ${i * 0.1 + 0.2}s infinite`,
           }} />
         </div>

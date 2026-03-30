@@ -16,13 +16,16 @@ export default function Home() {
     const update = () => {
       const t = Math.min(window.scrollY / 100, 1);
       const blur = Math.round(12 + t * 40);
-      const bg = (0.15 + t * 0.55).toFixed(2);
-      const maxW = 80;
+      const bg = (0.05 + t * 0.2).toFixed(2);
       const val = `blur(${blur}px) saturate(180%)`;
       header.style.backdropFilter = val;
       (header.style as unknown as Record<string, string>).webkitBackdropFilter = val;
       header.style.background = `rgba(255, 255, 255, ${bg})`;
-      header.style.maxWidth = `${maxW}rem`;
+      header.style.maxWidth = `${100 - t * 20}rem`;
+      header.style.boxShadow = t > 0
+        ? `0 8px 32px rgba(31, 38, 135, ${(t * 0.15).toFixed(2)}), inset 0 4px 20px rgba(255, 255, 255, ${(t * 0.3).toFixed(2)})`
+        : 'none';
+      header.classList.toggle('scrolled', window.scrollY > 0);
     };
 
     update();
@@ -30,11 +33,12 @@ export default function Home() {
     return () => window.removeEventListener("scroll", update);
   }, []);
 
+
   return (
     <div className="min-h-screen bg-[#fefdfd]">
       {/* Header */}
       <header className="fixed top-4 left-4 right-4 z-50">
-        <div ref={headerRef} className="mx-auto liquid-glass px-4 py-2 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]" style={{ maxWidth: '100rem', borderRadius: '9999px' }}>
+        <div ref={headerRef} className="mx-auto liquid-glass px-4 py-2 rounded-full transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-normal italic text-[#2141EC] pb-1 px-1" style={{ fontFamily: 'var(--font-playfair)' }}>Cohesive</h1>
 
@@ -44,7 +48,7 @@ export default function Home() {
               <a href="#contact" className="text-gray-700 hover:text-[#2141EC] hover:bg-white/60 transition-all font-medium px-4 py-1.5 rounded-full">Contact</a>
             </nav>
 
-            <button onClick={() => setShowCalendly(true)} className="bg-[#2141EC] text-white px-5 py-2.5 hover:bg-[#1a35bd] transition-all duration-200 font-medium shadow-lg shadow-[#2141EC]/25 hover:shadow-[#2141EC]/40 hover:scale-105 cursor-pointer" style={{ borderRadius: '9999px' }}>
+            <button onClick={() => setShowCalendly(true)} className="hidden md:block bg-[#2141EC] text-white px-5 py-2.5 hover:bg-[#1a35bd] transition-all duration-200 font-medium shadow-lg shadow-[#2141EC]/25 hover:shadow-[#2141EC]/40 hover:scale-105 cursor-pointer" style={{ borderRadius: '9999px' }}>
               Get Started
             </button>
           </div>
@@ -66,7 +70,7 @@ export default function Home() {
           {/* Headline */}
           <h1 className="animate-fade-up-delay text-4xl md:text-6xl font-extrabold text-gray-900 mb-5 leading-[1.15] tracking-[-0.02em]">
             Automate local
-            <span className="gradient-text block italic py-1" style={{ fontFamily: 'var(--font-playfair)' }}> business growth</span>
+            <span className="text-[#2141EC] block italic py-1" style={{ fontFamily: 'var(--font-playfair)' }}> business growth</span>
           </h1>
 
           {/* Subhead */}
@@ -83,7 +87,7 @@ export default function Home() {
         {/* Background image */}
         <div className="absolute inset-0 z-0 justify-center bg-[#fefdfd] top-[70vh] sm:top-[60vh] md:top-80">
           <img
-            src="/hero-image-v8.png"
+            src="/hero-1.png"
             alt="Hero Illustration"
             className="w-full object-cover object-center animate-fade-in"
             style={{
@@ -262,7 +266,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-10">
             <div>
-              <h3 className="text-xl font-normal italic text-white mb-4 py-1 px-1" style={{ fontFamily: 'var(--font-playfair)' }}>Cohesive</h3>
+              <h3 className="text-2xl font-normal italic text-white mb-4 py-1 px-1" style={{ fontFamily: 'var(--font-playfair)' }}>Cohesive</h3>
               <p className="text-gray-400 leading-relaxed">
                 The AI-native CRM built specifically for skilled trade services.
               </p>
