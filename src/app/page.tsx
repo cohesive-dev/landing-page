@@ -36,7 +36,7 @@ export default function Home() {
       <header className="fixed top-4 left-4 right-4 z-50">
         <div ref={headerRef} className="mx-auto liquid-glass px-4 py-2 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]" style={{ maxWidth: '100rem', borderRadius: '9999px' }}>
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-normal italic text-[#2141EC] py-1 px-1" style={{ fontFamily: 'var(--font-playfair)' }}>Cohesive</h1>
+            <h1 className="text-2xl font-normal italic text-[#2141EC] pb-1 px-1" style={{ fontFamily: 'var(--font-playfair)' }}>Cohesive</h1>
 
             <nav className="hidden md:flex items-center bg-white/40 rounded-full px-1 py-1 gap-1">
               <a href="#features" className="text-gray-700 hover:text-[#2141EC] hover:bg-white/60 transition-all font-medium px-4 py-1.5 rounded-full">Features</a>
@@ -258,7 +258,7 @@ export default function Home() {
       {/* ============================================================= */}
       {/*                         FOOTER                                 */}
       {/* ============================================================= */}
-      <footer className="bg-gradient-to-b from-[#0a0f2e] to-[#060a1a] text-white py-16">
+      <footer id="contact" className="bg-gradient-to-b from-[#0a0f2e] to-[#060a1a] text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-10">
             <div>
