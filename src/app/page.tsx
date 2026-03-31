@@ -87,7 +87,7 @@ export default function Home() {
         {/* Background image */}
         <div className="absolute inset-0 z-0 justify-center bg-[#fefdfd] top-[70vh] sm:top-[60vh] md:top-80">
           <img
-            src="/hero-1.png"
+            src="https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/hero-1.png"
             alt="Hero Illustration"
             className="w-full object-cover object-center animate-fade-in"
             style={{
@@ -111,13 +111,13 @@ export default function Home() {
           <div className="flex animate-marquee gap-28 items-center w-max">
             {[0, 1].map((copy) =>
               [
-                "/anago.avif",
-                "/corporate_cleaning.avif",
-                "/gotflow.webp",
-                "/janpro.avif",
-                "/kitchenguard.avif",
-                "/rolling_suds.avif",
-                "/service_master.webp",
+                "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/anago.avif",
+                "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/corporate_cleaning.avif",
+                "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/gotflow.webp",
+                "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/janpro.avif",
+                "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/kitchenguard.avif",
+                "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/rolling_suds.avif",
+                "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/service_master.webp",
               ].map((src, i) => (
                 <img key={`${copy}-${i}`} src={src} alt="" className="h-12 object-contain opacity-70 hover:opacity-100 transition-all duration-300 shrink-0" />
               ))
@@ -139,7 +139,7 @@ export default function Home() {
           </div>
           <div className="rounded-2xl overflow-hidden shadow-2xl shadow-[#2141EC]/10 border border-gray-200 ring-1 ring-black/5">
             <img
-              src="/product_screenshot_1.png"
+              src="https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/product_screenshot_1.png"
               alt="Cohesive CRM dashboard showing leads and contacts"
               className="w-full"
             />
