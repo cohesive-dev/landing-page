@@ -69,7 +69,7 @@ export default function Home() {
 
           {/* Headline */}
           <h1 className="animate-fade-up-delay text-4xl md:text-6xl font-extrabold text-gray-900 mb-5 leading-[1.15] tracking-[-0.02em]">
-            Automating local
+            Automate local
             <span className="text-[#2141EC] block italic py-1" style={{ fontFamily: 'var(--font-playfair)' }}> business growth</span>
           </h1>
 
