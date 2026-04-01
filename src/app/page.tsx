@@ -291,8 +291,12 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="border-t border-[#2141EC]/15 mt-12 pt-8 text-center text-gray-500 text-sm">
+          <div className="border-t border-[#2141EC]/15 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between text-gray-500 text-sm gap-4">
             <p>&copy; 2025 Cohesive. All rights reserved.</p>
+            <div className="flex gap-6">
+              <a href="/privacy" className="hover:text-white transition-colors">Privacy Policy</a>
+              <a href="/terms" className="hover:text-white transition-colors">Terms &amp; Conditions</a>
+            </div>
           </div>
         </div>
       </footer>
