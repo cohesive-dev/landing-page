@@ -50,6 +50,21 @@ export default function RootLayout({
             })(window,document,'script','dataLayer','GTM-WJJNZWWC');
           `}
         </Script>
+        <Script id="leadTruffle" strategy="afterInteractive">
+          {`
+            (function () {
+              var s = document.createElement('script');
+              s.src = "https://embeds-v1.leadtruffle.com/tooldesk-widget.js";
+              s.async = true;
+              s.onload = function () {
+                window.LTWidget.initialize({
+                  companyId: "54e15aec-f591-4859-9e29-a9b10f65981a"
+                });
+              };
+              document.head.appendChild(s);
+            })();
+        `}
+        </Script>
       </head>
       <body
         className={`${spaceGrotesk.variable} ${jakarta.variable} ${playfair.variable} ${caveat.variable} antialiased`}
