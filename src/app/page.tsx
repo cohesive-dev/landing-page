@@ -49,7 +49,7 @@ export default function Home() {
             </nav>
 
             <button onClick={() => setShowCalendly(true)} className="hidden md:block bg-[#2141EC] text-white px-5 py-2.5 hover:bg-[#1a35bd] transition-all duration-200 font-medium shadow-lg shadow-[#2141EC]/25 hover:shadow-[#2141EC]/40 hover:scale-105 cursor-pointer" style={{ borderRadius: '9999px' }}>
-              Get Started
+              Request a demo
             </button>
           </div>
         </div>
@@ -104,7 +104,7 @@ export default function Home() {
       {/*                      LOGO MARQUEE                              */}
       {/* ============================================================= */}
       <div className="relative z-10 mt-10 overflow-hidden pb-12">
-        <p className="text-center text-sm font-medium text-gray-400 uppercase tracking-widest mb-6">Trusted by 800+ contractors</p>
+        <p className="text-center text-sm font-medium text-gray-400 uppercase tracking-widest mb-6">Trusted by 1000+ service providers</p>
         <div className="relative">
           <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#fefdfd] to-transparent z-10"></div>
           <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#fefdfd] to-transparent z-10"></div>
