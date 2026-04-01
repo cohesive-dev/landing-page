@@ -249,7 +249,7 @@ export default function Home() {
             Join thousands of contractors who have streamlined operations with Cohesive.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button onClick={() => setShowCalendly(true)} className="bg-white text-[#2141EC] px-8 py-4 rounded-full text-lg hover:bg-gray-50 transition-all duration-200 font-semibold shadow-xl hover:shadow-2xl hover:scale-105 cursor-pointer">
+            <button onClick={() => setShowCalendly(true)} className="border-2 border-white/30 text-white px-8 py-4 rounded-full text-lg hover:bg-white/10 backdrop-blur-sm transition-all duration-200 font-medium cursor-pointer">
               Schedule Demo
             </button>
           </div>
