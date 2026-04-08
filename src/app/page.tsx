@@ -46,6 +46,7 @@ export default function Home() {
               <a href="#features" className="text-gray-700 hover:text-[#2141EC] hover:bg-white/60 transition-all font-medium px-4 py-1.5 rounded-full">Features</a>
               <a href="#about" className="text-gray-700 hover:text-[#2141EC] hover:bg-white/60 transition-all font-medium px-4 py-1.5 rounded-full">About</a>
               <a href="#contact" className="text-gray-700 hover:text-[#2141EC] hover:bg-white/60 transition-all font-medium px-4 py-1.5 rounded-full">Contact</a>
+              <a href="/api-docs" className="text-gray-700 hover:text-[#2141EC] hover:bg-white/60 transition-all font-medium px-4 py-1.5 rounded-full">API</a>
             </nav>
 
             <button onClick={() => setShowCalendly(true)} className="hidden md:block bg-[#2141EC] text-white px-5 py-2.5 hover:bg-[#1a35bd] transition-all duration-200 font-medium shadow-lg shadow-[#2141EC]/25 hover:shadow-[#2141EC]/40 hover:scale-105 cursor-pointer" style={{ borderRadius: '9999px' }}>
@@ -281,6 +282,7 @@ export default function Home() {
                 <li><a href="/blog" className="hover:text-white transition-colors">Blog</a></li>
                 <li><a href="/careers" className="hover:text-white transition-colors">Careers</a></li>
                 <li><a href="/whitelabel" className="hover:text-white transition-colors">Whitelabel Partnership</a></li>
+                <li><a href="/api-docs" className="hover:text-white transition-colors">API Docs</a></li>
               </ul>
             </div>
             <div>
