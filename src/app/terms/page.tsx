@@ -23,10 +23,10 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Subscription Model</h2>
               <p className="text-gray-600 leading-relaxed mb-3">
-                Cohesive AI operates on a monthly subscription basis. By paying the onboarding fee, you agree to maintain an active subscription for at least the first billing cycle. While not required, we typically recommend clients remain subscribed for a minimum of three (3) months, as results (including booked meetings and closed jobs) often materialize within a 2&ndash;3 month window.
+                Cohesive AI operates on a recurring subscription basis. By paying the onboarding fee, you agree to maintain an active subscription for at least the first billing cycle. While not required, we typically recommend clients remain subscribed for a minimum of three (3) months, as results (including booked meetings and closed jobs) often materialize within a 2&ndash;3 month window.
               </p>
               <p className="text-gray-600 leading-relaxed">
-                After the initial subscription period begins, your subscription will continue on a month-to-month basis and automatically renew on the same calendar day each month (e.g., if you signed up on the 10th, you will be billed on the 10th of each subsequent month).
+                After the initial subscription period begins, your subscription will continue on a recurring basis and automatically renew on the same calendar day on the renewal month (e.g., if you signed up on the 10th, you will be billed on the 10th).
               </p>
             </section>
 
