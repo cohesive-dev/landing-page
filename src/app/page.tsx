@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import GlassyButton from "@/components/GlassyButton";
 import CalendlyModal from "@/components/CalendlyModal";
 import { ScheduleAnim, CustomerAnim, EstimateAnim, InvoiceAnim, AnalyticsAnim, MobileAnim } from "@/components/FeatureAnimations";
@@ -130,23 +130,7 @@ export default function Home() {
       {/* ============================================================= */}
       {/*                    PRODUCT SCREENSHOT                          */}
       {/* ============================================================= */}
-      <section className="relative z-10 py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <p className="text-sm font-semibold text-[#2141EC] uppercase tracking-widest mb-3">See it in action</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">
-              Your leads, organized and <span className="italic" style={{ fontFamily: 'var(--font-playfair)' }}>ready to close</span>
-            </h2>
-          </div>
-          <div className="rounded-2xl overflow-hidden shadow-2xl shadow-[#2141EC]/10 border border-gray-200 ring-1 ring-black/5">
-            <img
-              src="https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/product_screenshot_1.png"
-              alt="Cohesive CRM dashboard showing leads and contacts"
-              className="w-full"
-            />
-          </div>
-        </div>
-      </section>
+      <ProductSlideshow />
 
 
       {/* ============================================================= */}
@@ -304,6 +288,127 @@ export default function Home() {
       </footer>
 
       {showCalendly && <CalendlyModal onClose={() => setShowCalendly(false)} />}
+    </div>
+  );
+}
+
+function ProductSlideshow() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const update = () => {
+      const el = sectionRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const total = rect.height - window.innerHeight;
+      const scrolled = -rect.top;
+      const p = Math.max(0, Math.min(1, scrolled / total));
+      setProgress(p);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  const slides: Slide[] = [
+    {
+      src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/product_screenshot_1.png",
+      alt: "Cohesive CRM dashboard showing leads and contacts",
+      eyebrow: "Lead Management",
+      title: <>Your leads, organized and <span className="italic" style={{ fontFamily: "var(--font-playfair)" }}>ready to close</span></>,
+      body: "Every prospect in one pipeline — from first touch to closed deal. No spreadsheets, no missed follow-ups, no leads slipping through.",
+    },
+    {
+      src: "/call_center_screenshot.png",
+      alt: "Cohesive AI call center transcript and SMS conversation",
+      eyebrow: "AI Outreach",
+      title: <>Calls and texts on <span className="italic" style={{ fontFamily: "var(--font-playfair)" }}>autopilot</span></>,
+      body: "AI works the phones and the inbox the moment a lead goes quiet — booking jobs while you sleep so you never leave money on the table.",
+    },
+  ];
+
+  const slideOffset = Math.max(0, Math.min(1, (progress - 0.45) / 0.1));
+  const activeIndex = slideOffset > 0.5 ? 1 : 0;
+
+  return (
+    <section ref={sectionRef} className="relative z-10 bg-white" style={{ height: "220vh" }}>
+      <div className="sticky top-0 h-screen flex items-center overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="text-center mb-8">
+            <p className="text-sm font-semibold text-[#2141EC] uppercase tracking-widest">See it in action</p>
+          </div>
+
+          <div className="relative w-full h-[74vh] max-h-[720px] overflow-hidden">
+            <div className="absolute inset-0 z-0">
+              <SlideRow {...slides[0]} />
+            </div>
+            <div
+              className="absolute inset-0 z-10"
+              style={{
+                transform: `translateY(${(1 - slideOffset) * 100}%)`,
+                transition: "transform 200ms cubic-bezier(0.22, 1, 0.36, 1)",
+              }}
+            >
+              <SlideRow {...slides[1]} />
+            </div>
+          </div>
+
+          <div className="mt-6 flex items-center justify-center gap-2">
+            {slides.map((_, i) => (
+              <span
+                key={i}
+                className="h-1.5 rounded-full transition-all duration-300"
+                style={{
+                  width: activeIndex === i ? 24 : 8,
+                  background: activeIndex === i ? "#2141EC" : "rgba(0,0,0,0.15)",
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+type Slide = {
+  src: string;
+  alt: string;
+  eyebrow: string;
+  title: ReactNode;
+  body: string;
+};
+
+function SlideRow({ src, alt, eyebrow, title, body }: Slide) {
+  return (
+    <div className="grid md:grid-cols-7 gap-6 md:gap-8 h-full items-stretch">
+      <div
+        className="md:col-span-2 rounded-2xl border border-gray-200 ring-1 ring-black/5 p-8 md:p-10 flex flex-col justify-center relative overflow-hidden"
+        style={{
+          backgroundColor: "#fbfbfd",
+          backgroundImage:
+            "radial-gradient(rgba(33, 65, 236, 0.08) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.85), rgba(33,65,236,0.03))",
+          backgroundSize: "14px 14px, 100% 100%",
+        }}
+      >
+        <p className="text-xs font-semibold text-[#2141EC] uppercase tracking-widest mb-3">{eyebrow}</p>
+        <h3 className="text-2xl md:text-3xl font-bold text-gray-900 leading-tight tracking-tight mb-4">{title}</h3>
+        <p className="text-base text-gray-600 leading-relaxed">{body}</p>
+      </div>
+      <div
+        className="md:col-span-5 rounded-2xl overflow-hidden shadow-2xl shadow-[#2141EC]/10 border border-gray-200 ring-1 ring-black/5 flex items-center justify-center px-5 md:px-7 py-4 md:py-5"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 30% 20%, rgba(33, 65, 236, 0.06), transparent 55%), radial-gradient(circle at 80% 90%, rgba(33, 65, 236, 0.05), transparent 55%), linear-gradient(135deg, #fcfdff 0%, #eef2fa 100%)",
+        }}
+      >
+        <img src={src} alt={alt} className="w-full h-auto max-h-full object-contain rounded-lg" />
+      </div>
     </div>
   );
 }
