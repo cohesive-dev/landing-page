@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Plus_Jakarta_Sans, Playfair_Display, Caveat, Dancing_Script, Allura } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
@@ -44,6 +44,11 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Cohesive - AI-Native CRM for Skilled Trade Services",
   description: "Streamline your trade business operations with Cohesive's intelligent CRM platform. Built specifically for contractors, plumbers, electricians, and skilled trade professionals.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

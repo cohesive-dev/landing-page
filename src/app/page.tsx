@@ -112,7 +112,7 @@ export default function Home() {
       {/* ============================================================= */}
       <section className="relative py-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Hero content */}
-        <div className="flex flex-col w-full justify-center items-center max-w-5xl mx-auto text-center relative mb-70 sm:mb-64 md:mb-110 z-10">
+        <div className="flex flex-col w-full justify-center items-center max-w-5xl mx-auto text-center relative mb-[45vh] z-10">
           {/* Badge */}
           <div className="animate-fade-up inline-flex items-center gap-2 bg-[#2141EC]/5 border border-[#2141EC]/10 rounded-full px-4 py-1.5 mb-8">
             <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
@@ -155,7 +155,7 @@ export default function Home() {
       {/* ============================================================= */}
       {/*                      LOGO MARQUEE                              */}
       {/* ============================================================= */}
-      <div className="relative z-10 overflow-hidden pb-12 max-w-[85rem] mx-auto">
+      <div className="relative z-10 overflow-hidden mb-32 max-w-[85rem] mx-auto">
         <p className="text-center text-sm text-gray-500 uppercase tracking-widest mb-10">Trusted by 1000+ businesses</p>
         <div className="relative overflow-hidden">
           <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#fefdfd] to-transparent z-10"></div>
@@ -208,7 +208,7 @@ export default function Home() {
       {/* ============================================================= */}
       {/*                         FEATURES SECTION                       */}
       {/* ============================================================= */}
-      <section id="features" className="py-24 bg-gradient-to-b from-gray-50/50 to-white">
+      <section id="features" className="pt-10 bg-gradient-to-b from-gray-50/50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <p className="text-sm font-semibold text-[#2141EC] uppercase tracking-widest mb-3">Features</p>
@@ -260,7 +260,7 @@ export default function Home() {
       {/* ============================================================= */}
       {/*                         ABOUT SECTION                          */}
       {/* ============================================================= */}
-      <section id="about" className="py-24 bg-gradient-to-b from-white to-gray-50">
+      <section id="about" className="pb-20 pt-32 bg-gradient-to-b from-white to-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <p className="text-sm font-semibold text-[#2141EC] uppercase tracking-widest mb-3">About us</p>
@@ -405,8 +405,8 @@ function ProductSlideshow() {
   const activeIndex = slideOffset > 0.5 ? 1 : 0;
 
   return (
-    <section ref={sectionRef} className="relative z-10 bg-white" style={{ height: "220vh" }}>
-      <div className="sticky top-0 h-screen flex items-center overflow-hidden">
+    <section ref={sectionRef} className="relative z-10 bg-white mb-22">
+      <div className="sticky top-0 flex items-center overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="text-center mb-8">
             <p className="text-sm font-semibold text-[#2141EC] uppercase tracking-widest">See us in action</p>
