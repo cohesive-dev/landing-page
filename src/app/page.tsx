@@ -112,7 +112,7 @@ export default function Home() {
       {/* ============================================================= */}
       <section className="relative py-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Hero content */}
-        <div className="flex flex-col w-full justify-center items-center max-w-5xl mx-auto text-center relative mb-46 sm:mb-64 md:mb-110 z-10">
+        <div className="flex flex-col w-full justify-center items-center max-w-5xl mx-auto text-center relative mb-70 sm:mb-64 md:mb-110 z-10">
           {/* Badge */}
           <div className="animate-fade-up inline-flex items-center gap-2 bg-[#2141EC]/5 border border-[#2141EC]/10 rounded-full px-4 py-1.5 mb-8">
             <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
@@ -156,7 +156,7 @@ export default function Home() {
       {/*                      LOGO MARQUEE                              */}
       {/* ============================================================= */}
       <div className="relative z-10 overflow-hidden pb-12 max-w-[85rem] mx-auto">
-        <p className="text-center text-sm font-semibold text-[#2141EC] uppercase tracking-widest mb-10">Trusted by 1000+ businesses</p>
+        <p className="text-center text-sm text-gray-500 uppercase tracking-widest mb-10">Trusted by 1000+ businesses</p>
         <div className="relative overflow-hidden">
           <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#fefdfd] to-transparent z-10"></div>
           <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#fefdfd] to-transparent z-10"></div>
