@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import GlassyButton from "@/components/GlassyButton";
 import CalendlyModal from "@/components/CalendlyModal";
 import { ScheduleAnim, CustomerAnim, EstimateAnim, InvoiceAnim, AnalyticsAnim, MobileAnim } from "@/components/FeatureAnimations";
+import { BalancedMasonryGrid, Frame } from "@masonry-grid/react";
 
 export default function Home() {
   const headerRef = useRef<HTMLDivElement>(null);
@@ -33,6 +34,56 @@ export default function Home() {
     return () => window.removeEventListener("scroll", update);
   }, []);
 
+  const collageImages = [
+    { src: "https://images.unsplash.com/photo-1635424824849-1b09bdcc55b1?w=800&q=80&auto=format", alt: "Roofing", w: 4, h: 3 },
+    { src: "https://images.unsplash.com/photo-1643225523483-e2c434191bba?w=800&q=80&auto=format", alt: "Roofing", w: 3, h: 4 },
+
+    { src: "https://images.unsplash.com/photo-1421940943431-d392fcc1079f?w=800&q=80&auto=format", alt: "Window washing", w: 4, h: 3 },
+    { src: "https://images.unsplash.com/photo-1651437342377-6ffb50cfb2a1?w=800&q=80&auto=format", alt: "Window washing", w: 3, h: 4 },
+
+    { src: "https://images.unsplash.com/photo-1525909002-1b05e0c869d8?w=800&q=80&auto=format", alt: "Painting", w: 3, h: 4 },
+    { src: "https://images.unsplash.com/photo-1688372199140-cade7ae820fe?w=800&q=80&auto=format", alt: "Painting", w: 4, h: 3 },
+
+    { src: "https://images.unsplash.com/photo-1631889477974-6394c9988436?w=800&q=80&auto=format", alt: "Flooring", w: 4, h: 3 },
+    { src: "https://images.unsplash.com/photo-1560185008-b033106af5c3?w=800&q=80&auto=format", alt: "Flooring", w: 3, h: 4 },
+
+    { src: "https://images.unsplash.com/photo-1734079692160-fcbe4be6ab96?w=800&q=80&auto=format", alt: "Landscaping", w: 4, h: 3 },
+    { src: "https://images.unsplash.com/photo-1597201278257-3687be27d954?w=800&q=80&auto=format", alt: "Landscaping", w: 3, h: 4 },
+
+    { src: "https://images.unsplash.com/photo-1647022528152-52ed9338611d?w=800&q=80&auto=format", alt: "HVAC", w: 4, h: 3 },
+    { src: "https://images.unsplash.com/photo-1615774925655-a0e97fc85c14?w=800&q=80&auto=format", alt: "HVAC", w: 3, h: 4 },
+
+    // Fillers to make the masonry bottom feel full
+    { src: "https://images.unsplash.com/photo-1631889477974-6394c9988436?w=800&q=80&auto=format", alt: "Flooring", w: 4, h: 3 },
+    { src: "https://images.unsplash.com/photo-1525909002-1b05e0c869d8?w=800&q=80&auto=format", alt: "Painting", w: 3, h: 4 },
+    { src: "https://images.unsplash.com/photo-1597201278257-3687be27d954?w=800&q=80&auto=format", alt: "Landscaping", w: 4, h: 3 },
+    { src: "https://images.unsplash.com/photo-1647022528152-52ed9338611d?w=800&q=80&auto=format", alt: "HVAC", w: 4, h: 3 },
+    { src: "https://images.unsplash.com/photo-1421940943431-d392fcc1079f?w=800&q=80&auto=format", alt: "Window washing", w: 3, h: 4 },
+    { src: "https://images.unsplash.com/photo-1635424824849-1b09bdcc55b1?w=800&q=80&auto=format", alt: "Roofing", w: 4, h: 3 },
+    { src: "https://images.unsplash.com/photo-1635424824849-1b09bdcc55b1?w=800&q=80&auto=format", alt: "Roofing", w: 4, h: 3 },
+    { src: "https://images.unsplash.com/photo-1635424824849-1b09bdcc55b1?w=800&q=80&auto=format", alt: "Roofing", w: 4, h: 3 }
+  ];
+
+  const newCollageImages = [
+    { src: "https://images.unsplash.com/photo-1635424824849-1b09bdcc55b1?w=800&q=80&auto=format", alt: "Roofing", w: 4, h: 3 },
+    { src: "https://images.unsplash.com/photo-1643225523483-e2c434191bba?w=800&q=80&auto=format", alt: "Roofing", w: 4, h: 4 },
+
+    { src: "https://images.unsplash.com/photo-1421940943431-d392fcc1079f?w=800&q=80&auto=format", alt: "Window washing", w: 4, h: 2.5 },
+    { src: "https://images.unsplash.com/photo-1651437342377-6ffb50cfb2a1?w=800&q=80&auto=format", alt: "Window washing", w: 4, h: 4 },
+
+    { src: "https://images.unsplash.com/photo-1525909002-1b05e0c869d8?w=800&q=80&auto=format", alt: "Painting", w: 4, h: 4 },
+    { src: "https://images.unsplash.com/photo-1688372199140-cade7ae820fe?w=800&q=80&auto=format", alt: "Painting", w: 4, h: 3 },
+
+    { src: "https://images.unsplash.com/photo-1631889477974-6394c9988436?w=800&q=80&auto=format", alt: "Flooring", w: 4, h: 3 },
+    { src: "https://images.unsplash.com/photo-1560185008-b033106af5c3?w=800&q=80&auto=format", alt: "Flooring", w: 4, h: 4 },
+
+    { src: "https://images.unsplash.com/photo-1734079692160-fcbe4be6ab96?w=800&q=80&auto=format", alt: "Landscaping", w: 4, h: 4 },
+    { src: "https://images.unsplash.com/photo-1597201278257-3687be27d954?w=800&q=80&auto=format", alt: "Landscaping", w: 4, h: 4 },
+
+    { src: "https://images.unsplash.com/photo-1647022528152-52ed9338611d?w=800&q=80&auto=format", alt: "HVAC", w: 4, h: 3 },
+    { src: "https://images.unsplash.com/photo-1615774925655-a0e97fc85c14?w=800&q=80&auto=format", alt: "HVAC", w: 4, h: 4 },
+  ];
+
 
   return (
     <div className="min-h-screen bg-[#fefdfd]">
@@ -61,7 +112,7 @@ export default function Home() {
       {/* ============================================================= */}
       <section className="relative py-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Hero content */}
-        <div className="flex flex-col w-full justify-center items-center max-w-5xl mx-auto text-center relative mb-180 z-10">
+        <div className="flex flex-col w-full justify-center items-center max-w-5xl mx-auto text-center relative mb-46 sm:mb-64 md:mb-110 z-10">
           {/* Badge */}
           <div className="animate-fade-up inline-flex items-center gap-2 bg-[#2141EC]/5 border border-[#2141EC]/10 rounded-full px-4 py-1.5 mb-8">
             <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
@@ -104,12 +155,12 @@ export default function Home() {
       {/* ============================================================= */}
       {/*                      LOGO MARQUEE                              */}
       {/* ============================================================= */}
-      <div className="relative z-10 mt-10 overflow-hidden pb-12">
-        <p className="text-center text-sm font-medium text-gray-400 uppercase tracking-widest mb-6">Trusted by 1000+ service providers</p>
-        <div className="relative">
+      <div className="relative z-10 overflow-hidden pb-12 max-w-[85rem] mx-auto">
+        <p className="text-center text-sm font-semibold text-[#2141EC] uppercase tracking-widest mb-10">Trusted by 1000+ businesses</p>
+        <div className="relative overflow-hidden">
           <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#fefdfd] to-transparent z-10"></div>
           <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#fefdfd] to-transparent z-10"></div>
-          <div className="flex animate-marquee gap-28 items-center w-max">
+          <div className="flex animate-marquee gap-16 items-center w-max">
             {[0, 1].map((copy) =>
               [
                 "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/anago.avif",
@@ -128,6 +179,27 @@ export default function Home() {
       </div>
 
       {/* ============================================================= */}
+      {/*                    INDUSTRIES COLLAGE                          */}
+      {/* ============================================================= */}
+      {/* <div className="relative z-10 pb-16 pt-2">
+        <div
+          className="max-w-[77rem] max-h-[620px] mx-auto overflow-hidden"
+          style={{
+            maskImage: "linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)",
+          }}
+        >
+          <BalancedMasonryGrid frameWidth={220} gap={4}>
+            {collageImages.map((img, i) => (
+              <Frame key={i} width={img.w} height={img.h}>
+                <img src={img.src} alt={img.alt} className="w-full h-full object-cover block" loading="lazy" />
+              </Frame>
+            ))}
+          </BalancedMasonryGrid>
+        </div>
+      </div> */}
+
+      {/* ============================================================= */}
       {/*                    PRODUCT SCREENSHOT                          */}
       {/* ============================================================= */}
       <ProductSlideshow />
@@ -143,9 +215,6 @@ export default function Home() {
             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
               Built for Trade Professionals
             </h2>
-            <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-              Everything you need to manage your trade business efficiently and profitably
-            </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -340,7 +409,7 @@ function ProductSlideshow() {
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="text-center mb-8">
-            <p className="text-sm font-semibold text-[#2141EC] uppercase tracking-widest">See it in action</p>
+            <p className="text-sm font-semibold text-[#2141EC] uppercase tracking-widest">See us in action</p>
           </div>
 
           <div className="relative w-full h-[74vh] max-h-[720px] overflow-hidden">

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Plus_Jakarta_Sans, Playfair_Display, Caveat } from "next/font/google";
+import { Space_Grotesk, Plus_Jakarta_Sans, Playfair_Display, Caveat, Dancing_Script, Allura } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
@@ -20,6 +20,18 @@ const caveat = Caveat({
   variable: "--font-logo",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+});
+
+const dancingScript = Dancing_Script({
+  variable: "--font-script",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const allura = Allura({
+  variable: "--font-cursive",
+  subsets: ["latin"],
+  weight: ["400"],
 });
 
 const playfair = Playfair_Display({
@@ -68,7 +80,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body
-        className={`${spaceGrotesk.variable} ${jakarta.variable} ${playfair.variable} ${caveat.variable} antialiased`}
+        className={`${spaceGrotesk.variable} ${jakarta.variable} ${playfair.variable} ${caveat.variable} ${dancingScript.variable} ${allura.variable} antialiased`}
         suppressHydrationWarning
       >
         <noscript>
