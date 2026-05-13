@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import CalendlyModal from "@/components/CalendlyModal";
+import FlipText from "@/components/FlipText";
+
+const CALENDLY_URL = "https://calendly.com/cohesiveapp/cohesive-demo";
 
 const motions: { index: string; name: string; body: string }[] = [
   {
@@ -135,7 +137,6 @@ const customerLogos = [
 ];
 
 export default function Home() {
-  const [showCalendly, setShowCalendly] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [userFlipped, setUserFlipped] = useState<Record<string, boolean>>({});
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
@@ -165,7 +166,9 @@ export default function Home() {
     return `radial-gradient(ellipse ${ew}% ${eh}% at ${cx}% 50%, rgba(250,248,244,1) 0%, rgba(250,248,244,0.92) 30%, rgba(250,248,244,0.55) 60%, rgba(250,248,244,0.15) 85%, rgba(250,248,244,0) 100%)`;
   })();
 
-  const openDemo = () => setShowCalendly(true);
+  const openDemo = () => {
+    window.location.href = CALENDLY_URL;
+  };
 
   return (
     <div className="min-h-screen bg-[#FAF8F4] text-[#0B1220]">
@@ -197,9 +200,9 @@ export default function Home() {
           <div className="flex items-center gap-3">
             <button
               onClick={openDemo}
-              className="hidden sm:inline-flex items-center bg-[#0B1220] text-white text-[0.9rem] font-medium px-4 py-2 rounded-full hover:bg-[#1F2937] transition-colors cursor-pointer"
+              className="hidden sm:inline-flex items-center bg-[#0B1220] text-white text-[0.9rem] font-extralight px-4 py-2 rounded-full hover:bg-[#1F2937] transition-colors cursor-pointer"
             >
-              Request demo
+              <FlipText text="Book a Demo" />
             </button>
           </div>
         </div>
@@ -272,10 +275,10 @@ export default function Home() {
             <div className="mt-10 lg:hidden">
               <button
                 onClick={openDemo}
-                className="inline-flex items-center gap-2 text-[#0B1220] px-5 py-3 rounded-full text-[0.95rem] font-medium border border-[#0B1220]/80 hover:bg-[#0B1220]/[0.04] transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 text-[#0B1220] px-5 py-3 rounded-full text-[0.95rem] font-light border border-[#0B1220]/80 hover:bg-[#0B1220]/[0.04] transition-colors cursor-pointer"
               >
-                Request a demo
-                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                <FlipText text="Book a Demo" />
+                <svg className="w-3.5 pt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                 </svg>
               </button>
@@ -285,18 +288,18 @@ export default function Home() {
             <div className="hidden lg:flex mt-10 flex-wrap items-center gap-3">
               <button
                 onClick={openDemo}
-                className="inline-flex items-center gap-2 bg-[#0B1220] text-white px-5 py-3 rounded-full text-[0.95rem] font-medium hover:bg-[#1F2937] transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 bg-[#0B1220] text-white px-5 py-3 rounded-full text-[0.95rem] font-light hover:bg-[#1F2937] transition-colors cursor-pointer"
               >
-                Request a demo
-                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                <FlipText text="Book a Demo" />
+                <svg className="w-3.5 pt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                 </svg>
               </button>
               <a
                 href="#system"
-                className="inline-flex items-center gap-2 text-[#0B1220] px-5 py-3 rounded-full text-[0.95rem] font-medium border border-black/10 hover:border-black/20 hover:bg-black/[0.03] transition-colors"
+                className="inline-flex items-center gap-2 text-[#0B1220] px-5 py-3 rounded-full text-[0.95rem] font-light border border-black/40 hover:border-black/50 hover:bg-black/[0.03] transition-colors"
               >
-                See how it works
+                <FlipText text="See how it works" />
               </a>
             </div>
 
@@ -624,10 +627,10 @@ export default function Home() {
           <div className="mt-10">
             <button
               onClick={openDemo}
-              className="inline-flex items-center gap-2 bg-white text-[#0B1220] px-6 py-3.5 rounded-full text-[0.98rem] font-medium hover:bg-white/90 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 bg-white text-[#0B1220] px-6 py-3.5 rounded-full text-[0.98rem] font-extralight hover:bg-white/90 transition-colors cursor-pointer"
             >
-              Request demo
-              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+              <FlipText text="Book a Demo" />
+              <svg className="w-3.5 pt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
               </svg>
             </button>
@@ -692,7 +695,6 @@ export default function Home() {
         </div>
       </footer>
 
-      {showCalendly && <CalendlyModal onClose={() => setShowCalendly(false)} />}
     </div>
   );
 }
