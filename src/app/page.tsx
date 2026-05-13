@@ -139,6 +139,7 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [userFlipped, setUserFlipped] = useState<Record<string, boolean>>({});
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
+  const [viewportWidth, setViewportWidth] = useState(360);
 
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > 8);
@@ -146,6 +147,23 @@ export default function Home() {
     window.addEventListener("scroll", update, { passive: true });
     return () => window.removeEventListener("scroll", update);
   }, []);
+
+  useEffect(() => {
+    const update = () => setViewportWidth(window.innerWidth);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  // Radial wash anchored over the text area. Smaller viewports get a larger ellipse
+  // (covers more of the image), wider viewports get a tighter ellipse on the left.
+  const heroFadeGradient = (() => {
+    const t = Math.max(0, Math.min(1, (viewportWidth - 360) / (1280 - 360)));
+    const ew = 160 - 80 * t;            // ellipse width: 160% -> 80%
+    const eh = 115 - 25 * t;            // ellipse height: 115% -> 90%
+    const cx = 12 + 13 * t;             // center x: 12% -> 25%
+    return `radial-gradient(ellipse ${ew}% ${eh}% at ${cx}% 50%, rgba(250,248,244,1) 0%, rgba(250,248,244,0.92) 30%, rgba(250,248,244,0.55) 60%, rgba(250,248,244,0.15) 85%, rgba(250,248,244,0) 100%)`;
+  })();
 
   const openDemo = () => setShowCalendly(true);
 
@@ -212,34 +230,12 @@ export default function Home() {
         </div>
 
 
-        {/* Legibility wash so text reads on top of the artwork.
-            Tuned per breakpoint — narrower viewports get a stronger, further-extending fade. */}
-        {/* <sm: <640px — image is full width */}
+        {/* Legibility wash, interpolated by viewport width: narrower screens get a heavier fade
+            that extends further across the image; wide screens get a light left-edge fade. */}
         <div
           aria-hidden
-          className="sm:hidden absolute inset-0 z-0 pointer-events-none"
-          style={{
-            backgroundImage:
-              "radial-gradient(ellipse 120% 85% at 15% 45%, rgba(250,248,244,0.95) 0%, rgba(250,248,244,0.85) 35%, rgba(250,248,244,0.45) 70%, rgba(250,248,244,0) 95%)",
-          }}
-        />
-        {/* sm: 640–767px — image is 80vw */}
-        <div
-          aria-hidden
-          className="hidden sm:block md:hidden absolute inset-0 z-0 pointer-events-none"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, rgba(250,248,244,1) 0%, rgba(250,248,244,1) 70%, rgba(250,248,244,0.9) 82%, rgba(250,248,244,0.5) 91%, rgba(250,248,244,0.12) 96%, rgba(250,248,244,0) 100%)",
-          }}
-        />
-        {/* md: 768–1023px — image is 80vw, more room for text */}
-        <div
-          aria-hidden
-          className="hidden md:block lg:hidden absolute inset-0 z-0 pointer-events-none"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, rgba(250,248,244,1) 0%, rgba(250,248,244,1) 60%, rgba(250,248,244,0.9) 74%, rgba(250,248,244,0.5) 86%, rgba(250,248,244,0.12) 94%, rgba(250,248,244,0) 100%)",
-          }}
+          className="absolute inset-0 z-0 pointer-events-none"
+          style={{ backgroundImage: heroFadeGradient }}
         />
 
         {/* Subtle accent glow on the right */}
