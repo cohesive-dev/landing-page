@@ -270,7 +270,7 @@ function CodeSample({ endpointId }: { endpointId: string }) {
               key={t.key}
               onClick={() => { setLang(t.key); setCopied(false); }}
               className={`flex items-center gap-1.5 px-4 py-2 text-xs font-medium transition-colors cursor-pointer ${lang === t.key
-                ? "bg-[#2a2a3e] text-white border-b-2 border-[#2141EC]"
+                ? "bg-[#2a2a3e] text-white border-b-2 border-[#256D85]"
                 : "text-gray-400 hover:text-gray-200 hover:bg-[#2a2a3e]/50"
                 }`}
             >
@@ -568,7 +568,7 @@ export default function ApiDocsPage() {
   return (
     <div className="min-h-screen bg-[#fefdfd] flex flex-col" style={{ fontFamily: "var(--font-jakarta)" }}>
       <header className="py-6 pl-8 pr-6 lg:pr-8 border-b border-gray-100">
-        <Link href="/" className="text-2xl font-normal italic text-[#2141EC]" style={{ fontFamily: "var(--font-playfair)" }}>
+        <Link href="/" className="text-2xl font-normal italic text-[#256D85]" style={{ fontFamily: "var(--font-playfair)" }}>
           Cohesive
         </Link>
       </header>
@@ -595,7 +595,7 @@ export default function ApiDocsPage() {
                         href={`#${ep.id}`}
                         onClick={() => handleNavClick(ep.id)}
                         className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors ${active === ep.id
-                          ? "bg-[#2141EC]/5 text-[#2141EC] font-medium"
+                          ? "bg-[#256D85]/5 text-[#256D85] font-medium"
                           : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                           }`}
                       >
@@ -612,7 +612,7 @@ export default function ApiDocsPage() {
           ))}
 
           <div className="mt-8 pt-6 border-t border-gray-100">
-            <Link href="/" className="text-sm text-[#2141EC] hover:underline">&larr; Back to home</Link>
+            <Link href="/" className="text-sm text-[#256D85] hover:underline">&larr; Back to home</Link>
           </div>
         </nav>
 
@@ -647,7 +647,7 @@ export default function ApiDocsPage() {
               </p>
               <ol className="relative space-y-0 text-sm text-gray-700">
                 {/* Connecting line */}
-                <div className="absolute left-[15px] top-6 bottom-6 w-px bg-gradient-to-b from-[#2141EC]/30 via-[#2141EC]/20 to-[#2141EC]/30" />
+                <div className="absolute left-[15px] top-6 bottom-6 w-px bg-gradient-to-b from-[#256D85]/30 via-[#256D85]/20 to-[#256D85]/30" />
 
                 {[
                   {
@@ -655,7 +655,7 @@ export default function ApiDocsPage() {
                     title: "Fetch your campaigns",
                     body: (
                       <>
-                        Call <a href="#campaigns" className="text-[#2141EC] hover:underline font-mono text-xs">GET /api/campaigns</a> to
+                        Call <a href="#campaigns" className="text-[#256D85] hover:underline font-mono text-xs">GET /api/campaigns</a> to
                         list all campaigns and note the <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">id</code> of the campaign you want to work with.
                       </>
                     ),
@@ -665,7 +665,7 @@ export default function ApiDocsPage() {
                     title: "Browse the inbox",
                     body: (
                       <>
-                        Use <a href="#inbox-all" className="text-[#2141EC] hover:underline font-mono text-xs">GET /api/&#123;campaignId&#125;/inbox/all</a> or <a href="#inbox-replies" className="text-[#2141EC] hover:underline font-mono text-xs">GET /api/&#123;campaignId&#125;/inbox/replies</a> to
+                        Use <a href="#inbox-all" className="text-[#256D85] hover:underline font-mono text-xs">GET /api/&#123;campaignId&#125;/inbox/all</a> or <a href="#inbox-replies" className="text-[#256D85] hover:underline font-mono text-xs">GET /api/&#123;campaignId&#125;/inbox/replies</a> to
                         see sent emails or replies. Each entry includes the <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">leadEmail</code> you will need for the next step.
                       </>
                     ),
@@ -675,7 +675,7 @@ export default function ApiDocsPage() {
                     title: "Get the full conversation",
                     body: (
                       <>
-                        Call <a href="#conversation" className="text-[#2141EC] hover:underline font-mono text-xs">GET /api/&#123;campaignId&#125;/conversation?leadEmail=...</a> to
+                        Call <a href="#conversation" className="text-[#256D85] hover:underline font-mono text-xs">GET /api/&#123;campaignId&#125;/conversation?leadEmail=...</a> to
                         retrieve the complete email thread. The <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">history</code> array
                         contains every message with fields like <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">id</code> (message&nbsp;ID), <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">statsId</code>, <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">time</code>, and <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">emailBody</code>.
                       </>
@@ -687,9 +687,9 @@ export default function ApiDocsPage() {
                     body: (
                       <>
                         Use the values from the conversation thread to build your payload.
-                        For <a href="#reply" className="text-[#2141EC] hover:underline font-mono text-xs">POST /api/&#123;campaignId&#125;/reply</a>, map
+                        For <a href="#reply" className="text-[#256D85] hover:underline font-mono text-xs">POST /api/&#123;campaignId&#125;/reply</a>, map
                         the message{"'"}s <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">statsId</code> {"->"}  <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">originalEmailStatsId</code>, <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">id</code> {"->"}  <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">originalEmailMessageId</code>, and so on.
-                        For <a href="#forward" className="text-[#2141EC] hover:underline font-mono text-xs">POST /api/&#123;campaignId&#125;/forward</a>, pass
+                        For <a href="#forward" className="text-[#256D85] hover:underline font-mono text-xs">POST /api/&#123;campaignId&#125;/forward</a>, pass
                         the <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">statsId</code> and <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">id</code> as <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">messageId</code> along with
                         the <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">toEmails</code> you want to forward to.
                       </>
@@ -698,11 +698,11 @@ export default function ApiDocsPage() {
                 ].map(({ step, title, body }) => (
                   <li key={step} className="relative flex gap-4 pb-4">
                     {/* Step number circle */}
-                    <span className="relative z-10 flex items-center justify-center w-8 h-8 rounded-full bg-[#2141EC] text-white text-xs font-bold shrink-0 shadow-sm shadow-[#2141EC]/25">
+                    <span className="relative z-10 flex items-center justify-center w-8 h-8 rounded-full bg-[#256D85] text-white text-xs font-bold shrink-0 shadow-sm shadow-[#256D85]/25">
                       {step}
                     </span>
                     {/* Card */}
-                    <div className="flex-1 border border-gray-200 rounded-lg px-5 py-4 bg-white shadow-sm hover:shadow-md hover:border-[#2141EC]/20 transition-all">
+                    <div className="flex-1 border border-gray-200 rounded-lg px-5 py-4 bg-white shadow-sm hover:shadow-md hover:border-[#256D85]/20 transition-all">
                       <p className="font-semibold text-gray-900 mb-1">{title}</p>
                       <p className="text-gray-500 leading-relaxed">{body}</p>
                     </div>

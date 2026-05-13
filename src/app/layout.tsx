@@ -42,8 +42,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Cohesive - Your AI door-knocking agent",
-  description: "Streamline your trade business operations with Cohesive's intelligent CRM platform. Built specifically for contractors, plumbers, electricians, and skilled trade professionals.",
+  title: "Cohesive | The AI growth engine for businesses that sell locally",
+  description: "Cohesive automates prospecting, outreach, follow-up, and lead management for companies selling to local businesses, property owners, and commercial facilities.",
 };
 
 export const viewport: Viewport = {

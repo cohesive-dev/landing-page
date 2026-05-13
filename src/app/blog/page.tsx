@@ -7,7 +7,7 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen bg-[#fefdfd] flex flex-col" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
       <header className="py-6 px-6 lg:px-8">
-        <Link href="/" className="text-2xl font-normal italic text-[#2141EC]" style={{ fontFamily: 'var(--font-playfair)' }}>
+        <Link href="/" className="text-2xl font-normal italic text-[#256D85]" style={{ fontFamily: 'var(--font-playfair)' }}>
           Cohesive
         </Link>
       </header>
@@ -26,7 +26,7 @@ export default function BlogPage() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group border border-gray-200 rounded-xl overflow-hidden hover:border-[#2141EC]/30 hover:shadow-lg transition-all duration-200 flex flex-col"
+                className="group border border-gray-200 rounded-xl overflow-hidden hover:border-[#256D85]/30 hover:shadow-lg transition-all duration-200 flex flex-col"
               >
                 {post.image && (
                   <img
@@ -37,16 +37,16 @@ export default function BlogPage() {
                 )}
                 <div className="p-5 flex flex-col flex-1">
                   {post.category && (
-                    <span className="text-xs font-medium text-[#2141EC] mb-2">{post.category}</span>
+                    <span className="text-xs font-medium text-[#256D85] mb-2">{post.category}</span>
                   )}
-                  <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-[#2141EC] transition-colors leading-snug">
+                  <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-[#256D85] transition-colors leading-snug">
                     {post.title}
                   </h3>
                   <p className="text-xs text-gray-400 mb-3">{getFormattedDate(post)}</p>
                   <p className="text-sm text-gray-500 leading-relaxed flex-1 line-clamp-3">
                     {post.description}
                   </p>
-                  <span className="text-sm text-[#2141EC] font-medium mt-4 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                  <span className="text-sm text-[#256D85] font-medium mt-4 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                     Read more
                     <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
                       <path d="M5 12h14M12 5l7 7-7 7" />
