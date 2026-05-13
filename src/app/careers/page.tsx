@@ -31,7 +31,7 @@ export default function CareersPage() {
   return (
     <div className="min-h-screen bg-[#fefdfd] flex flex-col" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
       <header className="py-6 px-6 lg:px-8">
-        <Link href="/" className="text-2xl font-normal italic text-[#2141EC]" style={{ fontFamily: 'var(--font-playfair)' }}>
+        <Link href="/" className="text-2xl font-normal italic text-[#256D85]" style={{ fontFamily: 'var(--font-playfair)' }}>
           Cohesive
         </Link>
       </header>
@@ -73,12 +73,12 @@ export default function CareersPage() {
             ))}
           </div>
 
-          <div className="mt-12 text-center bg-[#2141EC]/5 border border-[#2141EC]/10 rounded-2xl p-8">
+          <div className="mt-12 text-center bg-[#256D85]/5 border border-[#256D85]/10 rounded-2xl p-8">
             <p className="text-gray-700 mb-1 font-medium">Don&apos;t see a role that fits?</p>
             <p className="text-gray-500 text-sm mb-5">We&apos;re always looking for talented people. Reach out and tell us about yourself.</p>
             <a
               href="mailto:admin@cohesiveapp.com"
-              className="inline-block bg-[#2141EC] text-white px-6 py-3 rounded-full hover:bg-[#1a35bd] transition-all duration-200 font-medium shadow-lg shadow-[#2141EC]/25"
+              className="inline-block bg-[#256D85] text-white px-6 py-3 rounded-full hover:bg-[#1d566a] transition-all duration-200 font-medium shadow-lg shadow-[#256D85]/25"
             >
               admin@cohesiveapp.com
             </a>

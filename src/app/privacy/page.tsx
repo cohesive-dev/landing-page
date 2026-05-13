@@ -10,7 +10,7 @@ export default function PrivacyPolicyPage() {
   return (
     <div className="min-h-screen bg-[#fefdfd] flex flex-col" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
       <header className="py-6 px-6 lg:px-8">
-        <Link href="/" className="text-2xl font-normal italic text-[#2141EC]" style={{ fontFamily: 'var(--font-playfair)' }}>
+        <Link href="/" className="text-2xl font-normal italic text-[#256D85]" style={{ fontFamily: 'var(--font-playfair)' }}>
           Cohesive
         </Link>
       </header>
@@ -92,7 +92,7 @@ export default function PrivacyPolicyPage() {
               </ul>
               <p className="text-gray-600">
                 To do so, please contact us at{" "}
-                <a href="mailto:support@getcohesiveai.com" className="text-[#2141EC] hover:underline">support@getcohesiveai.com</a>
+                <a href="mailto:support@getcohesiveai.com" className="text-[#256D85] hover:underline">support@getcohesiveai.com</a>
               </p>
             </section>
 
@@ -114,7 +114,7 @@ export default function PrivacyPolicyPage() {
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">9. Contact Us</h2>
               <p className="text-gray-600">
                 If you have questions or concerns about this Privacy Policy, contact us at:{" "}
-                <a href="mailto:support@getcohesiveai.com" className="text-[#2141EC] hover:underline">support@getcohesiveai.com</a>
+                <a href="mailto:support@getcohesiveai.com" className="text-[#256D85] hover:underline">support@getcohesiveai.com</a>
               </p>
             </section>
           </div>

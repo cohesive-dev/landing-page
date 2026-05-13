@@ -10,7 +10,7 @@ export default function TermsPage() {
   return (
     <div className="min-h-screen bg-[#fefdfd] flex flex-col" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
       <header className="py-6 px-6 lg:px-8">
-        <Link href="/" className="text-2xl font-normal italic text-[#2141EC]" style={{ fontFamily: 'var(--font-playfair)' }}>
+        <Link href="/" className="text-2xl font-normal italic text-[#256D85]" style={{ fontFamily: 'var(--font-playfair)' }}>
           Cohesive
         </Link>
       </header>
@@ -60,7 +60,7 @@ export default function TermsPage() {
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">4. Cancellation Policy</h2>
               <p className="text-gray-600 leading-relaxed mb-3">
                 You may cancel your subscription at any time. Cancellation requests must be submitted via email to{" "}
-                <a href="mailto:support@getcohesiveai.com" className="text-[#2141EC] hover:underline">support@getcohesiveai.com</a>{" "}
+                <a href="mailto:support@getcohesiveai.com" className="text-[#256D85] hover:underline">support@getcohesiveai.com</a>{" "}
                 prior to your next billing date to avoid charges for the upcoming billing cycle.
               </p>
               <p className="text-gray-600 leading-relaxed">

@@ -274,7 +274,7 @@ html {
 
 .feature-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(33, 65, 236, 0.15);
+  box-shadow: 0 20px 40px rgba(37, 109, 133, 0.15);
 }
 
 /* Subtle floating animation for decorative elements */

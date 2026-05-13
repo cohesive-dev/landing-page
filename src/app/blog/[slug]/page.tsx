@@ -28,17 +28,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   return (
     <div className="min-h-screen bg-[#fefdfd] flex flex-col" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
       <header className="py-6 px-6 lg:px-8">
-        <Link href="/" className="text-2xl font-normal italic text-[#2141EC]" style={{ fontFamily: 'var(--font-playfair)' }}>
+        <Link href="/" className="text-2xl font-normal italic text-[#256D85]" style={{ fontFamily: 'var(--font-playfair)' }}>
           Cohesive
         </Link>
       </header>
 
       <main className="flex-1 px-6 py-12">
         <article className="max-w-3xl mx-auto">
-          <Link href="/blog" className="text-sm text-[#2141EC] hover:underline mb-6 inline-block">&larr; Back to blog</Link>
+          <Link href="/blog" className="text-sm text-[#256D85] hover:underline mb-6 inline-block">&larr; Back to blog</Link>
 
           {post.category && (
-            <span className="block text-sm font-medium text-[#2141EC] mb-2">{post.category}</span>
+            <span className="block text-sm font-medium text-[#256D85] mb-2">{post.category}</span>
           )}
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 leading-tight">{post.title}</h1>
           <p className="text-sm text-gray-400 mb-8">{getFormattedDate(post)}</p>
@@ -59,7 +59,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               prose-p:text-gray-600 prose-p:leading-relaxed
               prose-li:text-gray-600
               prose-strong:text-gray-900
-              prose-a:text-[#2141EC] prose-a:no-underline hover:prose-a:underline
+              prose-a:text-[#256D85] prose-a:no-underline hover:prose-a:underline
               prose-img:rounded-xl
               prose-table:border-collapse prose-th:bg-gray-50 prose-th:p-3 prose-td:p-3 prose-th:border prose-td:border prose-th:border-gray-200 prose-td:border-gray-200"
             dangerouslySetInnerHTML={{ __html: post.contentHtml }}
