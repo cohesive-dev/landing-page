@@ -179,14 +179,14 @@ export default function Home() {
                   return (
                     <div
                       key={i}
-                      className="group relative overflow-hidden rounded-2xl ring-1 ring-black/5 bg-gray-100 cursor-pointer select-none"
-                      style={{ height: `${height}px` }}
+                      className="group relative overflow-hidden rounded-2xl ring-1 ring-black/5 bg-gray-100 cursor-pointer select-none h-56 md:h-[var(--card-h)]"
+                      style={{ ["--card-h" as string]: `${height}px`, touchAction: "manipulation" }}
                       onMouseEnter={() => setHoveredKey(key)}
                       onMouseLeave={() => setHoveredKey(prev => (prev === key ? null : prev))}
                       onClick={() => setUserFlipped(prev => ({ ...prev, [key]: !prev[key] }))}
                     >
                       <div
-                        className={`absolute inset-0 transition-opacity duration-700 ${imageVisible ? "opacity-100" : "opacity-0"}`}
+                        className={`absolute inset-0 transition-opacity duration-300 ${imageVisible ? "opacity-100" : "opacity-0"}`}
                       >
                         <img
                           src={img.src}
@@ -199,7 +199,7 @@ export default function Home() {
                         </span>
                       </div>
                       <div
-                        className={`absolute inset-0 flex flex-col justify-end p-5 bg-gradient-to-br from-[#2141EC] to-[#1b2d8a] text-white transition-opacity duration-700 ${imageVisible ? "opacity-0" : "opacity-100"}`}
+                        className={`absolute inset-0 flex flex-col justify-end p-5 bg-gradient-to-br from-[#2141EC] to-[#1b2d8a] text-white transition-opacity duration-300 ${imageVisible ? "opacity-0" : "opacity-100"}`}
                       >
                         <p className="text-[10px] font-semibold uppercase tracking-widest text-white/70 mb-2">{img.alt}</p>
                         <p className="text-sm md:text-base font-medium leading-snug">{img.text}</p>
