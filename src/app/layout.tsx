@@ -42,7 +42,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Cohesive - AI Growth Engine for Main Street",
+  title: "Cohesive - Your AI door-knocking agent",
   description: "Streamline your trade business operations with Cohesive's intelligent CRM platform. Built specifically for contractors, plumbers, electricians, and skilled trade professionals.",
 };
 
