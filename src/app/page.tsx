@@ -109,7 +109,7 @@ export default function Home() {
 
           {/* Subhead */}
           <p className="animate-fade-up-delay-2 text-base md:text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Fully automated outreach to local businesses and commercial property owners. Done for you on auto-pilot.
+            Multi-channel outreach to local businesses and commercial property owners. Done for you on auto-pilot.
           </p>
 
           {/* CTA Buttons */}
