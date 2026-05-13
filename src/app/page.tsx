@@ -6,22 +6,22 @@ import CalendlyModal from "@/components/CalendlyModal";
 
 const motions: { index: string; name: string; body: string }[] = [
   {
-    index: "01",
+    index: "01.",
     name: "Find",
     body: "Build targeted lists of local businesses, property owners, and decision-makers.",
   },
   {
-    index: "02",
+    index: "02.",
     name: "Reach",
     body: "Launch personalized outreach across email, phone, SMS, and other channels.",
   },
   {
-    index: "03",
+    index: "03.",
     name: "Follow up",
     body: "AI agents handle replies, missed calls, and past leads so opportunities do not slip.",
   },
   {
-    index: "04",
+    index: "04.",
     name: "Manage",
     body: "Track conversations, interested prospects, booked calls, and performance in one place.",
   },
@@ -398,7 +398,7 @@ export default function Home() {
                 className={`pt-6 lg:pt-8 pb-10 lg:pb-12 px-4 lg:px-5 ${i !== motions.length - 1 ? "lg:border-r border-black/[0.08]" : ""
                   } ${i % 2 === 0 ? "sm:border-r sm:border-black/[0.08] lg:border-r" : ""}`}
               >
-                <p className="text-[0.75rem] uppercase tracking-[0.2em] text-[#2F6FED] font-medium mb-6">
+                <p className="text-[2.75rem] sm:text-[3.25rem] leading-none tracking-[-0.04em] font-medium text-[#2F6FED] mb-5">
                   {m.index}
                 </p>
                 <h3 className="text-[1.55rem] tracking-[-0.015em] font-medium text-[#0B1220] mb-4">
