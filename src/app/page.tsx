@@ -211,13 +211,34 @@ export default function Home() {
           />
         </div>
 
-        {/* Mobile legibility wash so text reads on top of the artwork */}
+
+        {/* Legibility wash so text reads on top of the artwork.
+            Tuned per breakpoint — narrower viewports get a stronger, further-extending fade. */}
+        {/* <sm: <640px — image is full width */}
         <div
           aria-hidden
-          className="lg:hidden absolute inset-0 z-0 pointer-events-none"
+          className="sm:hidden absolute inset-0 z-0 pointer-events-none"
           style={{
             backgroundImage:
-              "linear-gradient(to right, rgba(250,248,244,1) 0%, rgba(250,248,244,1) 40%, rgba(250,248,244,0.92) 60%, rgba(250,248,244,0.55) 80%, rgba(250,248,244,0.15) 92%, rgba(250,248,244,0) 100%)",
+              "radial-gradient(ellipse 120% 85% at 15% 45%, rgba(250,248,244,0.95) 0%, rgba(250,248,244,0.85) 35%, rgba(250,248,244,0.45) 70%, rgba(250,248,244,0) 95%)",
+          }}
+        />
+        {/* sm: 640–767px — image is 80vw */}
+        <div
+          aria-hidden
+          className="hidden sm:block md:hidden absolute inset-0 z-0 pointer-events-none"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(250,248,244,1) 0%, rgba(250,248,244,1) 70%, rgba(250,248,244,0.9) 82%, rgba(250,248,244,0.5) 91%, rgba(250,248,244,0.12) 96%, rgba(250,248,244,0) 100%)",
+          }}
+        />
+        {/* md: 768–1023px — image is 80vw, more room for text */}
+        <div
+          aria-hidden
+          className="hidden md:block lg:hidden absolute inset-0 z-0 pointer-events-none"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(250,248,244,1) 0%, rgba(250,248,244,1) 60%, rgba(250,248,244,0.9) 74%, rgba(250,248,244,0.5) 86%, rgba(250,248,244,0.12) 94%, rgba(250,248,244,0) 100%)",
           }}
         />
 
@@ -237,7 +258,7 @@ export default function Home() {
               Built to help you win Main Street
             </p>
 
-            <h1 className="text-[2.6rem] sm:text-[3.4rem] lg:text-[4.6rem] leading-[1.02] tracking-[-0.035em] font-medium text-[#0B1220]">
+            <h1 className="text-[clamp(2.4rem,6.5vw,4.6rem)] leading-[1.02] tracking-[-0.035em] font-medium text-[#0B1220]">
               The AI growth engine for
               <br className="hidden sm:block" />
               <span className="italic font-normal" style={{ fontFamily: "var(--font-playfair)" }}>
@@ -752,10 +773,10 @@ function InvestorLink({
 function HeroStat({ value, label }: { value: string; label: string }) {
   return (
     <div>
-      <p className="text-[1.5rem] sm:text-[1.65rem] tracking-[-0.02em] font-medium text-[#0B1220] leading-none">
+      <p className="text-[clamp(1.3rem,calc(1.2vw_+_1rem),1.75rem)] tracking-[-0.02em] font-medium text-[#0B1220] leading-none">
         {value}
       </p>
-      <p className="mt-2 text-[0.82rem] text-[#64748B] leading-snug">
+      <p className="mt-2 text-[clamp(0.74rem,calc(0.6vw_+_0.6rem),0.9rem)] text-[#64748B] leading-snug">
         {label}
       </p>
     </div>
