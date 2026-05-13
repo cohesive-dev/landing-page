@@ -5,6 +5,34 @@ import GlassyButton from "@/components/GlassyButton";
 import CalendlyModal from "@/components/CalendlyModal";
 import { ScheduleAnim, CustomerAnim, EstimateAnim, InvoiceAnim, AnalyticsAnim, MobileAnim } from "@/components/FeatureAnimations";
 
+const collageColumns: {
+  src: string;
+  alt: string;
+  weight: number;
+  mode: "image" | "text";
+  text: string;
+}[][] = [
+    [
+      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/hvac.png?w=800&q=80&auto=format", alt: "HVAC", weight: 1.40, mode: "text", text: "Auto-trigger maintenance reminders so a single service call becomes a year-round contract." },
+      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/plumbing-contractor.jpg?w=800&q=80&auto=format", alt: "Plumbing", weight: 0.95, mode: "image", text: "Capture every after-hours emergency. AI answers, dispatches, and books on the spot." },
+      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/power-washing.jpg?w=800&q=80&auto=format", alt: "Power Washing", weight: 0.85, mode: "image", text: "Hyper-local commercial outreach on autopilot. Stack recurring routes, not one-offs." },
+    ],
+    [
+      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/landscaping.avif?w=800&q=80&auto=format", alt: "Landscaping", weight: 1.00, mode: "image", text: "Recurring service contracts on autopilot — quote, schedule, and invoice from a phone." },
+      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/window-washing.avif?w=800&q=80&auto=format", alt: "Window Washing", weight: 1.2, mode: "text", text: "Win more high-rise bid invites with AI-qualified commercial lead lists." },
+      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/expory-flooring.png?w=800&q=80&auto=format", alt: "Epoxy Flooring", weight: 1.00, mode: "image", text: "Showcase your finishes to local industrial buyers. Only ready-to-quote leads." },
+    ],
+    [
+      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/painting.avif?w=800&q=80&auto=format", alt: "Painting", weight: 1.00, mode: "text", text: "Estimate from photos. Send polished, branded quotes in minutes — not hours." },
+      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/roofing.avif?w=800&q=80&auto=format", alt: "Roofing", weight: 1.00, mode: "image", text: "Storm-triggered outreach: be first on the doorstep after the weather rolls through." },
+    ],
+    [
+      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/kitchen-hood.png?w=800&q=80&auto=format", alt: "Kitchen Hood", weight: 1.50, mode: "text", text: "Compliance reminders, multi-site contracts, and automatic re-bookings handled." },
+      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/pest-control.png?w=800&q=80&auto=format", alt: "Pest Control", weight: 1.00, mode: "image", text: "Quarterly contracts in one click. Auto-renewals, route planning, instant invoicing." },
+      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/commercial-lighting.png?w=800&q=80&auto=format", alt: "Commercial Lighting", weight: 1.00, mode: "text", text: "Bid on retrofits 10× faster with AI-drafted proposals and supplier comps." },
+    ],
+  ];
+
 export default function Home() {
   const headerRef = useRef<HTMLDivElement>(null);
   const [showCalendly, setShowCalendly] = useState(false);
@@ -35,33 +63,8 @@ export default function Home() {
 
   const COLLAGE_HEIGHT = 800;
   const COLLAGE_GAP = 12;
-  const collageColumns: {
-    src: string;
-    alt: string;
-    weight: number;
-    mode: "image" | "text";
-    text: string;
-  }[][] = [
-      [
-        { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/hvac.png?w=800&q=80&auto=format", alt: "HVAC", weight: 1.40, mode: "text", text: "Auto-trigger maintenance reminders so a single service call becomes a year-round contract." },
-        { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/plumbing-contractor.jpg?w=800&q=80&auto=format", alt: "Plumbing", weight: 0.95, mode: "image", text: "Capture every after-hours emergency. AI answers, dispatches, and books on the spot." },
-        { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/power-washing.jpg?w=800&q=80&auto=format", alt: "Power Washing", weight: 0.85, mode: "image", text: "Hyper-local commercial outreach on autopilot. Stack recurring routes, not one-offs." },
-      ],
-      [
-        { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/landscaping.avif?w=800&q=80&auto=format", alt: "Landscaping", weight: 1.00, mode: "image", text: "Recurring service contracts on autopilot — quote, schedule, and invoice from a phone." },
-        { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/window-washing.avif?w=800&q=80&auto=format", alt: "Window Washing", weight: 1.2, mode: "text", text: "Win more high-rise bid invites with AI-qualified commercial lead lists." },
-        { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/expory-flooring.png?w=800&q=80&auto=format", alt: "Epoxy Flooring", weight: 1.00, mode: "image", text: "Showcase your finishes to local industrial buyers. Only ready-to-quote leads." },
-      ],
-      [
-        { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/painting.avif?w=800&q=80&auto=format", alt: "Painting", weight: 1.00, mode: "text", text: "Estimate from photos. Send polished, branded quotes in minutes — not hours." },
-        { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/roofing.avif?w=800&q=80&auto=format", alt: "Roofing", weight: 1.00, mode: "image", text: "Storm-triggered outreach: be first on the doorstep after the weather rolls through." },
-      ],
-      [
-        { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/kitchen-hood.png?w=800&q=80&auto=format", alt: "Kitchen Hood", weight: 1.50, mode: "text", text: "Compliance reminders, multi-site contracts, and automatic re-bookings handled." },
-        { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/pest-control.png?w=800&q=80&auto=format", alt: "Pest Control", weight: 1.00, mode: "image", text: "Quarterly contracts in one click. Auto-renewals, route planning, instant invoicing." },
-        { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/commercial-lighting.png?w=800&q=80&auto=format", alt: "Commercial Lighting", weight: 1.00, mode: "text", text: "Bid on retrofits 10× faster with AI-drafted proposals and supplier comps." },
-      ],
-    ];
+  const [userFlipped, setUserFlipped] = useState<Record<string, boolean>>({});
+  const [hoveredKey, setHoveredKey] = useState<string | null>(null);
 
 
   return (
@@ -170,14 +173,20 @@ export default function Home() {
                 {col.map((img, i) => {
                   const height = (img.weight / totalWeight) * itemsAvailable;
                   const startsAsImage = img.mode === "image";
+                  const key = `${ci}-${i}`;
+                  const isFlipped = !!userFlipped[key] !== (hoveredKey === key);
+                  const imageVisible = startsAsImage !== isFlipped;
                   return (
                     <div
                       key={i}
-                      className="group relative overflow-hidden rounded-2xl ring-1 ring-black/5 bg-gray-100 cursor-pointer"
+                      className="group relative overflow-hidden rounded-2xl ring-1 ring-black/5 bg-gray-100 cursor-pointer select-none"
                       style={{ height: `${height}px` }}
+                      onMouseEnter={() => setHoveredKey(key)}
+                      onMouseLeave={() => setHoveredKey(prev => (prev === key ? null : prev))}
+                      onClick={() => setUserFlipped(prev => ({ ...prev, [key]: !prev[key] }))}
                     >
                       <div
-                        className={`absolute inset-0 transition-opacity duration-500 ${startsAsImage ? "opacity-100 group-hover:opacity-0" : "opacity-0 group-hover:opacity-100"}`}
+                        className={`absolute inset-0 transition-opacity duration-700 ${imageVisible ? "opacity-100" : "opacity-0"}`}
                       >
                         <img
                           src={img.src}
@@ -190,7 +199,7 @@ export default function Home() {
                         </span>
                       </div>
                       <div
-                        className={`absolute inset-0 flex flex-col justify-end p-5 bg-gradient-to-br from-[#2141EC] to-[#1b2d8a] text-white transition-opacity duration-500 ${startsAsImage ? "opacity-0 group-hover:opacity-100" : "opacity-100 group-hover:opacity-0"}`}
+                        className={`absolute inset-0 flex flex-col justify-end p-5 bg-gradient-to-br from-[#2141EC] to-[#1b2d8a] text-white transition-opacity duration-700 ${imageVisible ? "opacity-0" : "opacity-100"}`}
                       >
                         <p className="text-[10px] font-semibold uppercase tracking-widest text-white/70 mb-2">{img.alt}</p>
                         <p className="text-sm md:text-base font-medium leading-snug">{img.text}</p>
