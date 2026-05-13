@@ -98,7 +98,7 @@ export default function Home() {
           {/* Badge */}
           <div className="animate-fade-up inline-flex items-center gap-2 bg-[#2141EC]/5 border border-[#2141EC]/10 rounded-full px-4 py-1.5 mb-8">
             <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-            <span className="text-sm font-medium text-[#1a35bd]">#1 AI Growth Engine for Trade Services</span>
+            <span className="text-sm font-medium text-[#1a35bd]">AI that helps your win more local business customers</span>
           </div>
 
           {/* Headline */}
@@ -340,7 +340,7 @@ export default function Home() {
             <div>
               <h3 className="text-2xl font-normal italic text-white mb-4 py-1 px-1" style={{ fontFamily: 'var(--font-playfair)' }}>Cohesive</h3>
               <p className="text-gray-400 leading-relaxed">
-                The AI-native CRM built specifically for skilled trade services.
+                Find, Reach, and Win Local Business Customers with AI.
               </p>
             </div>
             <div>
