@@ -98,7 +98,7 @@ export default function Home() {
           {/* Badge */}
           <div className="animate-fade-up inline-flex items-center gap-2 bg-[#2141EC]/5 border border-[#2141EC]/10 rounded-full px-4 py-1.5 mb-8">
             <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-            <span className="text-sm font-medium text-[#1a35bd]">AI that helps your win more local business customers</span>
+            <span className="text-sm font-medium text-[#1a35bd]">Win more local businesses with AI</span>
           </div>
 
           {/* Headline */}
