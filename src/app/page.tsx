@@ -15,19 +15,19 @@ const collageColumns: {
     [
       { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/hvac.png?w=800&q=80&auto=format", alt: "HVAC", weight: 1.40, mode: "text", text: "Auto-trigger maintenance reminders so a single service call becomes a year-round contract." },
       { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/plumbing-contractor.jpg?w=800&q=80&auto=format", alt: "Plumbing", weight: 0.95, mode: "image", text: "Capture every after-hours emergency. AI answers, dispatches, and books on the spot." },
-      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/power-washing.jpg?w=800&q=80&auto=format", alt: "Power Washing", weight: 0.85, mode: "image", text: "Hyper-local commercial outreach on autopilot. Stack recurring routes, not one-offs." },
+      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/power-washing.jpg?w=800&q=80&auto=format", alt: "Power Washing", weight: 0.85, mode: "text", text: "Hyper-local commercial outreach on autopilot. Stack recurring routes, not one-offs." },
     ],
     [
       { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/landscaping.avif?w=800&q=80&auto=format", alt: "Landscaping", weight: 1.00, mode: "image", text: "Recurring service contracts on autopilot — quote, schedule, and invoice from a phone." },
-      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/window-washing.avif?w=800&q=80&auto=format", alt: "Window Washing", weight: 1.2, mode: "text", text: "Win more high-rise bid invites with AI-qualified commercial lead lists." },
-      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/expory-flooring.png?w=800&q=80&auto=format", alt: "Epoxy Flooring", weight: 1.00, mode: "image", text: "Showcase your finishes to local industrial buyers. Only ready-to-quote leads." },
-    ],
-    [
-      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/painting.avif?w=800&q=80&auto=format", alt: "Painting", weight: 1.00, mode: "text", text: "Estimate from photos. Send polished, branded quotes in minutes — not hours." },
-      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/roofing.avif?w=800&q=80&auto=format", alt: "Roofing", weight: 1.00, mode: "image", text: "Storm-triggered outreach: be first on the doorstep after the weather rolls through." },
+      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/expory-flooring.png?w=800&q=80&auto=format", alt: "Epoxy Flooring", weight: 1.00, mode: "text", text: "Showcase your finishes to local industrial buyers. Only ready-to-quote leads." },
+      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/window-washing.avif?w=800&q=80&auto=format", alt: "Window Washing", weight: 1.2, mode: "image", text: "Win more high-rise bid invites with AI-qualified commercial lead lists." },
     ],
     [
       { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/kitchen-hood.png?w=800&q=80&auto=format", alt: "Kitchen Hood", weight: 1.50, mode: "text", text: "Compliance reminders, multi-site contracts, and automatic re-bookings handled." },
+      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/roofing.avif?w=800&q=80&auto=format", alt: "Roofing", weight: 1.00, mode: "image", text: "Storm-triggered outreach: be first on the doorstep after the weather rolls through." },
+    ],
+    [
+      { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/painting.avif?w=800&q=80&auto=format", alt: "Painting", weight: 1.00, mode: "image", text: "Estimate from photos. Send polished, branded quotes in minutes — not hours." },
       { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/pest-control.png?w=800&q=80&auto=format", alt: "Pest Control", weight: 1.00, mode: "image", text: "Quarterly contracts in one click. Auto-renewals, route planning, instant invoicing." },
       { src: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/commercial-lighting.png?w=800&q=80&auto=format", alt: "Commercial Lighting", weight: 1.00, mode: "text", text: "Bid on retrofits 10× faster with AI-drafted proposals and supplier comps." },
     ],
