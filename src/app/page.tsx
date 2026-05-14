@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import FlipText from "@/components/FlipText";
+import ProductMockup from "@/components/ProductMockup";
+import CampaignMockup from "@/components/CampaignMockup";
+import CallCenterMockup from "@/components/CallCenterMockup";
 
 const CALENDLY_URL = "https://calendly.com/cohesiveapp/cohesive-demo";
 
@@ -437,7 +440,7 @@ export default function Home() {
             </div>
           </div>
 
-          <ProductFrame />
+          <CampaignMockup />
 
           <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-6 text-[0.88rem] text-[#475569]">
             <ProductBullet label="Campaigns" body="Targeted lists, channels, and cadences in flight." />
@@ -449,43 +452,40 @@ export default function Home() {
       </section>
 
       {/* ============================================================= */}
+      {/*                         LEAD LISTS                             */}
+      {/* ============================================================= */}
+      <section className="border-t border-black/[0.06] py-28 px-6 lg:px-10">
+        <div className="max-w-[80rem] mx-auto">
+          <p className="text-[0.78rem] uppercase tracking-[0.18em] text-[#64748B] mb-6">
+            Find thousands of potential buyers in your service area
+          </p>
+          <h2 className="text-[2rem] sm:text-[2.6rem] leading-[1.08] tracking-[-0.025em] font-medium text-[#0B1220] max-w-[44rem] mb-12">
+            Hyper-local, hyper-targeted lead lists.
+            <span className="italic font-normal" style={{ fontFamily: "var(--font-playfair)" }}>
+              {" "}Right at your fingertips
+            </span>
+            .
+          </h2>
+          <ProductMockup />
+        </div>
+      </section>
+
+      {/* ============================================================= */}
       {/*                      AI FOLLOW-UP                              */}
       {/* ============================================================= */}
       <section className="border-t border-black/[0.06] py-28 px-6 lg:px-10">
-        <div className="max-w-[80rem] mx-auto grid md:grid-cols-12 gap-12 items-center">
-          <div className="md:col-span-5">
-            <p className="text-[0.78rem] uppercase tracking-[0.18em] text-[#64748B] mb-6">
-              Always-on follow-up
-            </p>
-            <h2 className="text-[2rem] sm:text-[2.6rem] leading-[1.08] tracking-[-0.025em] font-medium text-[#0B1220]">
-              Never lose a lead because your team was busy.
-            </h2>
-            <p className="mt-7 text-[1.02rem] leading-[1.65] text-[#475569]">
-              Cohesive follows up across email, phone, and SMS the moment a lead goes quiet.
-              Replies get answered, missed calls get returned, and past prospects get
-              reactivated, all without your team touching the keyboard.
-            </p>
-            <ul className="mt-8 space-y-3 text-[0.96rem] text-[#475569]">
-              <FollowUpItem text="Multi-channel replies handled by an AI agent that knows your offer." />
-              <FollowUpItem text="Missed call recovery within minutes, day or night." />
-              <FollowUpItem text="Past leads automatically reactivated when timing is right." />
-            </ul>
-          </div>
-          <div className="md:col-span-7">
-            <div
-              className="relative rounded-lg overflow-hidden border border-black/10 ring-1 ring-black/5 p-3 bg-white"
-              style={{
-                backgroundImage:
-                  "linear-gradient(180deg, #ffffff, #f5f6f8)",
-              }}
-            >
-              <img
-                src="https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/call_center_screenshot.png"
-                alt="Cohesive AI handling replies, calls, and SMS for local growth"
-                className="w-full h-auto rounded-lg"
-              />
-            </div>
-          </div>
+        <div className="max-w-[80rem] mx-auto">
+          <p className="text-[0.78rem] uppercase tracking-[0.18em] text-[#64748B] mb-6">
+            Beyond cold outbound
+          </p>
+          <h2 className="text-[2rem] sm:text-[2.6rem] leading-[1.08] tracking-[-0.025em] font-medium text-[#0B1220] max-w-[44rem] mb-12">
+            Re-engage every account
+            <span className="italic font-normal" style={{ fontFamily: "var(--font-playfair)" }}>
+              {" "}already in your CRM
+            </span>
+            .
+          </h2>
+          <CallCenterMockup />
         </div>
       </section>
 
@@ -695,26 +695,6 @@ export default function Home() {
         </div>
       </footer>
 
-    </div>
-  );
-}
-
-function ProductFrame() {
-  return (
-    <div
-      className="relative rounded-lg overflow-hidden border border-gray-300 p-3 sm:p-4"
-      style={{
-        backgroundImage:
-          "radial-gradient(80% 50% at 50% 0%, rgba(37,109,133,0.08), transparent 60%), linear-gradient(180deg, #ffffff 0%, #f4f5f8 100%)",
-      }}
-    >
-      <div className="rounded-lg overflow-hidden bg-white">
-        <img
-          src="https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/product_screenshot_1.png"
-          alt="Cohesive product showing campaigns, AI follow-up, interested leads, and performance"
-          className="w-full h-auto block"
-        />
-      </div>
     </div>
   );
 }
