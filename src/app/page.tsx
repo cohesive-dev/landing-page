@@ -6,8 +6,7 @@ import FlipText from "@/components/FlipText";
 import ProductMockup from "@/components/ProductMockup";
 import CampaignMockup from "@/components/CampaignMockup";
 import CallCenterMockup from "@/components/CallCenterMockup";
-
-const CALENDLY_URL = "https://calendly.com/cohesiveapp/cohesive-demo";
+import CalendlyModal from "@/components/CalendlyModal";
 
 const motions: { index: string; name: string; body: string }[] = [
   {
@@ -140,6 +139,7 @@ const customerLogos = [
 ];
 
 export default function Home() {
+  const [showCalendly, setShowCalendly] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [userFlipped, setUserFlipped] = useState<Record<string, boolean>>({});
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
@@ -169,9 +169,7 @@ export default function Home() {
     return `radial-gradient(ellipse ${ew}% ${eh}% at ${cx}% 50%, rgba(250,248,244,1) 0%, rgba(250,248,244,0.92) 30%, rgba(250,248,244,0.55) 60%, rgba(250,248,244,0.15) 85%, rgba(250,248,244,0) 100%)`;
   })();
 
-  const openDemo = () => {
-    window.location.href = CALENDLY_URL;
-  };
+  const openDemo = () => setShowCalendly(true);
 
   return (
     <div className="min-h-screen bg-[#FAF8F4] text-[#0B1220]">
@@ -695,6 +693,7 @@ export default function Home() {
         </div>
       </footer>
 
+      {showCalendly && <CalendlyModal onClose={() => setShowCalendly(false)} />}
     </div>
   );
 }
