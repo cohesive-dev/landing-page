@@ -45,8 +45,8 @@ export const metadata: Metadata = {
   title: "Cohesive | The AI growth engine for businesses that sell locally",
   description: "Cohesive automates prospecting, outreach, follow-up, and lead management for companies selling to local businesses, property owners, and commercial facilities.",
   icons: {
-    icon: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/cohesive-backgroundless-2.png",
-    apple: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/cohesive-backgroundless-2.png",
+    icon: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/cohesive-favicon.png",
+    apple: "https://cohesive-b0d5d2agc3g8bgha.z03.azurefd.net/landing-assets/cohesive-favicon.png",
   },
 };
 
