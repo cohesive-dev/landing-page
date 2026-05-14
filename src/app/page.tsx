@@ -307,7 +307,7 @@ export default function Home() {
             <div className="mt-6 pt-4 lg:mt-14 lg:pt-8 max-w-[44rem] grid grid-cols-2 sm:grid-cols-4 gap-y-6 gap-x-6">
               <HeroStat value="1,000+" label="Service businesses" />
               <HeroStat value="220K+" label="Conversations handled" />
-              <HeroStat value="3 channels" label="Email, phone, SMS" />
+              <HeroStat value="3 channels" label="Email, SMS, phone" />
               <HeroStat value="24/7" label="AI follow-up" />
             </div>
           </div>
