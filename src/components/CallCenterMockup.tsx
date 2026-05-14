@@ -185,7 +185,7 @@ function BackLink() {
 
 function AccountCard() {
   return (
-    <div className="bg-white shadow-sm border border-gray-200 p-4 flex flex-col gap-1">
+    <div className="bg-white border border-gray-200 p-4 flex flex-col gap-1">
       <h2 className="text-[13px] font-semibold text-black">{ACCOUNT.name}</h2>
       <span className="text-gray-500 text-[11px]">{ACCOUNT.phone}</span>
       <span className="text-gray-500 text-[11px] mt-1">
@@ -206,13 +206,13 @@ function DateFilter() {
       <span className="text-gray-600">Filter by date:</span>
       <span className="flex items-center gap-1 text-gray-600">
         <span>From</span>
-        <span className="shadow-sm px-2 py-1.5 border border-gray-300 bg-white text-gray-700">
+        <span className="px-2 py-1.5 border border-gray-300 bg-white text-gray-700">
           04/28/2025
         </span>
       </span>
       <span className="flex items-center gap-1 text-gray-600">
         <span>To</span>
-        <span className="shadow-sm px-2 py-1.5 border border-gray-300 bg-white text-gray-700">
+        <span className="px-2 py-1.5 border border-gray-300 bg-white text-gray-700">
           05/12/2025
         </span>
       </span>
@@ -224,7 +224,7 @@ function CallBubble({ entry }: { entry: CallEntry }) {
   const isOutbound = entry.direction === "outgoing";
   return (
     <div className={`flex ${isOutbound ? "justify-start" : "justify-end"}`}>
-      <div className="max-w-[55%] border border-gray-200 p-3 flex flex-col gap-2 bg-white text-[11px]">
+      <div className="max-w-[55%] rounded border border-gray-200 p-3 flex flex-col gap-2 bg-white text-[11px]">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-1.5">
             <PhoneIcon size={12} />
@@ -262,9 +262,8 @@ function SmsBubble({ entry }: { entry: SmsEntry }) {
   return (
     <div className={`flex ${isOutbound ? "justify-start" : "justify-end"}`}>
       <div
-        className={`max-w-[70%] rounded-lg px-4 py-2.5 flex flex-col gap-1 ${
-          isOutbound ? "bg-black text-white" : "bg-gray-100 text-black"
-        }`}
+        className={`max-w-[70%] rounded px-4 py-2.5 flex flex-col gap-1 ${isOutbound ? "bg-black text-white" : "bg-gray-100 text-black"
+          }`}
       >
         <div className="flex items-center gap-2 text-[10px] opacity-70">
           <ChatIcon size={11} />
