@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 const endpoints = [
   { id: "workflow", label: "Typical Workflow", section: "Guide" },
+  { id: "clients", label: "Get Clients", section: "Clients" },
   { id: "campaigns", label: "Get Campaigns", section: "Campaigns" },
   { id: "inbox-all", label: "Get All Sent", section: "Inbox" },
   { id: "inbox-replies", label: "Get Replies", section: "Inbox" },
@@ -17,6 +18,22 @@ const endpoints = [
 type Lang = "curl" | "javascript" | "python";
 
 const codeSamples: Record<string, Record<Lang, string>> = {
+  clients: {
+    curl: `curl -X GET \\
+  -H "x-api-key: your_api_key_here" \\
+  "https://getcohesiveai.com/api/clients"`,
+    javascript: `const res = await fetch("/api/clients", {
+  headers: { "x-api-key": "your_api_key_here" },
+});
+const data = await res.json();`,
+    python: `import requests
+
+res = requests.get(
+    "https://getcohesiveai.com/api/clients",
+    headers={"x-api-key": "your_api_key_here"},
+)
+data = res.json()`,
+  },
   campaigns: {
     curl: `curl -X GET \\
   -H "x-api-key: your_api_key_here" \\
@@ -483,6 +500,14 @@ function Endpoint({
   );
 }
 
+const clientsResponse = [
+  { name: "id", type: "string", description: "Client (platform organization) ID" },
+  { name: "name", type: "string", description: "Client name" },
+  { name: "domain", type: "string", description: "Client's primary domain" },
+  { name: "status", type: "string", description: "Client status (e.g. \"ACTIVE\")" },
+  { name: "campaignIds", type: "string[]", description: "IDs of campaigns belonging to this client" },
+];
+
 const campaignsResponse = [
   { name: "id", type: "string", description: "Campaign ID" },
   { name: "createdAt", type: "number", description: "Creation timestamp (ms)" },
@@ -582,7 +607,7 @@ export default function ApiDocsPage() {
               <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">{section}</p>
               <ul className="space-y-1">
                 {items.map((ep) => {
-                  const method = ep.id.startsWith("inbox") || ep.id === "conversation" || ep.id === "campaigns" ? "GET" : ep.id === "types" || ep.id === "workflow" ? "" : "POST";
+                  const method = ep.id.startsWith("inbox") || ep.id === "conversation" || ep.id === "campaigns" || ep.id === "clients" ? "GET" : ep.id === "types" || ep.id === "workflow" ? "" : "POST";
                   const methodColor =
                     method === "GET"
                       ? "text-green-600"
@@ -712,6 +737,21 @@ export default function ApiDocsPage() {
             </section>
 
             <div className="space-y-10">
+              {/* Clients */}
+              <section>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-4">Clients</h2>
+                <div className="space-y-6">
+                  <Endpoint
+                    id="clients"
+                    method="GET"
+                    path="/api/clients"
+                    description="Fetch all clients. Returns an array of client objects (only available for whitelabel partners)."
+                    response={clientsResponse}
+                    errorResponse={errorResponseSchema}
+                  />
+                </div>
+              </section>
+
               {/* Campaigns */}
               <section>
                 <h2 className="text-2xl font-semibold text-gray-900 mb-4">Campaigns</h2>

@@ -31,7 +31,6 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(data);
   } catch (error) {
-    console.log("DEBUG", error);
     Sentry.captureException(error);
     return NextResponse.json(
       { error: "An unexpected error occurred" },
