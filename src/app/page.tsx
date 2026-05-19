@@ -7,6 +7,7 @@ import ProductMockup from "@/components/ProductMockup";
 import CampaignMockup from "@/components/CampaignMockup";
 import CallCenterMockup from "@/components/CallCenterMockup";
 import CalendlyModal from "@/components/CalendlyModal";
+import GradientBackdrop from "@/components/GradientBackdrop";
 
 const motions: { index: string; name: string; body: string }[] = [
   {
@@ -254,11 +255,11 @@ export default function Home() {
 
         <div className="max-w-[72rem] mx-auto lg:mx-40 relative z-10 w-full">
           <div className="max-w-[58rem]">
-            <p className="text-[0.78rem] uppercase tracking-[0.18em] text-[#64748B] mb-7">
+            <p className="text-[0.702rem] uppercase tracking-[0.18em] text-[#64748B] mb-7">
               Built to help you win Main Street
             </p>
 
-            <h1 className="text-[clamp(2.4rem,6.5vw,4.6rem)] leading-[1.02] tracking-[-0.035em] font-medium text-[#0B1220]">
+            <h1 className="text-[clamp(2.16rem,5.85vw,4.14rem)] leading-[1.02] tracking-[-0.035em] font-medium text-[#0B1220]">
               The AI growth engine for
               <br className="hidden sm:block" />
               <span className="italic font-normal" style={{ fontFamily: "var(--font-playfair)" }}>
@@ -267,7 +268,7 @@ export default function Home() {
               .
             </h1>
 
-            <p className="hidden lg:block mt-8 text-[1.08rem] sm:text-[1.18rem] leading-[1.55] text-[#475569] max-w-[44rem]">
+            <p className="hidden lg:block mt-8 text-[0.972rem] sm:text-[1.062rem] leading-[1.55] text-[#475569] max-w-[44rem]">
               Cohesive finds, reaches, and follows up with local businesses that traditional
               sales channels miss, from salons to gyms to grocery stores, all on auto-pilot.
             </p>
@@ -276,7 +277,7 @@ export default function Home() {
             <div className="mt-10 lg:hidden">
               <button
                 onClick={openDemo}
-                className="inline-flex items-center gap-2 text-[#0B1220] px-5 py-3 rounded-full text-[0.95rem] font-light border border-[#0B1220]/80 hover:bg-[#0B1220]/[0.04] transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 text-[#0B1220] px-5 py-3 rounded-full text-[0.855rem] font-light border border-[#0B1220]/80 hover:bg-[#0B1220]/[0.04] transition-colors cursor-pointer"
               >
                 <FlipText text="Book a Demo" />
                 <svg className="w-3.5 pt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
@@ -289,7 +290,7 @@ export default function Home() {
             <div className="hidden lg:flex mt-10 flex-wrap items-center gap-3">
               <button
                 onClick={openDemo}
-                className="inline-flex items-center gap-2 bg-[#0B1220] text-white px-5 py-3 rounded-full text-[0.95rem] font-light hover:bg-[#1F2937] transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 bg-[#0B1220] text-white px-5 py-3 rounded-full text-[0.855rem] font-light hover:bg-[#1F2937] transition-colors cursor-pointer"
               >
                 <FlipText text="Book a Demo" />
                 <svg className="w-3.5 pt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
@@ -298,7 +299,7 @@ export default function Home() {
               </button>
               <a
                 href="#system"
-                className="inline-flex items-center gap-2 text-[#0B1220] px-5 py-3 rounded-full text-[0.95rem] font-light border border-black/40 hover:border-black/50 hover:bg-black/[0.03] transition-colors"
+                className="inline-flex items-center gap-2 text-[#0B1220] px-5 py-3 rounded-full text-[0.855rem] font-light border border-black/40 hover:border-black/50 hover:bg-black/[0.03] transition-colors"
               >
                 <FlipText text="See how it works" />
               </a>
@@ -344,22 +345,23 @@ export default function Home() {
       {/* ============================================================= */}
       {/*                       THE CATEGORY                             */}
       {/* ============================================================= */}
-      <section className="border-t border-black/[0.06] py-28 px-6 lg:px-10">
+      <section className="relative isolate overflow-hidden py-28 px-6 lg:px-10">
+        <GradientBackdrop />
         <div className="max-w-[72rem] mx-auto grid md:grid-cols-12 gap-10">
           <div className="md:col-span-4">
-            <p className="text-[1rem] sm:text-[1.05rem] uppercase tracking-[0.22em] text-[#0B1220]">
+            <p className="text-[1rem] sm:text-[1.05rem] uppercase tracking-[0.22em] text-white font-semibold">
               The category
             </p>
           </div>
           <div className="md:col-span-8 max-w-[44rem]">
-            <h2 className="text-[2rem] sm:text-[2.6rem] leading-[1.08] tracking-[-0.025em] font-medium text-[#0B1220]">
+            <h2 className="text-[2rem] sm:text-[2.6rem] leading-[1.08] tracking-[-0.025em] font-medium text-white">
               Main Street is still the
               <span className="italic font-normal" style={{ fontFamily: "var(--font-playfair)" }}>
                 {" "}hardest market to reach
               </span>
               .
             </h2>
-            <div className="mt-7 space-y-5 text-[1.05rem] leading-[1.65] text-[#475569]">
+            <div className="mt-7 space-y-5 text-[1.05rem] leading-[1.65] text-white">
               <p>
                 Most sales tools are built around LinkedIn profiles, corporate databases, and
                 office-based buyers. Main Street businesses do not always show up cleanly in
@@ -369,7 +371,7 @@ export default function Home() {
                 Restaurants, gyms, grocers, clinics, salons, and local operators are fragmented,
                 poorly categorized, hard to contact, and easy to miss.
               </p>
-              <p className="text-[#0B1220] font-medium">
+              <p>
                 Cohesive turns that messy local market into a repeatable growth engine.
               </p>
             </div>
@@ -384,7 +386,7 @@ export default function Home() {
         <div className="max-w-[72rem] mx-auto">
           <div className="grid md:grid-cols-12 gap-10 mb-20">
             <div className="md:col-span-4">
-              <p className="text-[1rem] sm:text-[1.05rem] uppercase tracking-[0.22em] text-[#0B1220]">
+              <p className="text-[1rem] sm:text-[1.05rem] uppercase tracking-[0.22em] text-[#0B1220] font-semibold">
                 The platform
               </p>
             </div>
@@ -418,19 +420,20 @@ export default function Home() {
       {/* ============================================================= */}
       {/*                       PRODUCT VISUAL                           */}
       {/* ============================================================= */}
-      <section className="border-t border-black/[0.06] py-28 px-6 lg:px-10">
+      <section className="relative isolate overflow-hidden py-28 px-6 lg:px-10">
+        <GradientBackdrop />
         <div className="max-w-[80rem] mx-auto">
           <div className="grid md:grid-cols-12 gap-10 mb-16">
             <div className="md:col-span-4">
-              <p className="text-[1rem] sm:text-[1.05rem] uppercase tracking-[0.22em] text-[#0B1220]">
+              <p className="text-[1rem] sm:text-[1.05rem] uppercase tracking-[0.22em] text-white font-semibold">
                 Command center
               </p>
             </div>
             <div className="md:col-span-8 max-w-[42rem]">
-              <h2 className="text-[2rem] sm:text-[2.6rem] leading-[1.08] tracking-[-0.025em] font-medium text-[#0B1220]">
+              <h2 className="text-[2rem] sm:text-[2.6rem] leading-[1.08] tracking-[-0.025em] font-medium text-white">
                 Your growth command center.
               </h2>
-              <p className="mt-6 text-[1.02rem] leading-[1.65] text-[#475569]">
+              <p className="mt-6 text-[1.02rem] leading-[1.65] text-white/75">
                 Campaign status, AI follow-up, interested leads, booked calls, and performance
                 across every market and every channel. Run local growth as one system instead of
                 six tabs.
@@ -440,7 +443,7 @@ export default function Home() {
 
           <CampaignMockup />
 
-          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-6 text-[0.88rem] text-[#475569]">
+          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-6 text-[0.88rem] text-white/70">
             <ProductBullet label="Campaigns" body="Targeted lists, channels, and cadences in flight." />
             <ProductBullet label="AI follow-up" body="Replies, missed calls, and stale leads kept warm." />
             <ProductBullet label="Interested leads" body="Booked calls and qualified pipeline in one view." />
@@ -471,12 +474,13 @@ export default function Home() {
       {/* ============================================================= */}
       {/*                      AI FOLLOW-UP                              */}
       {/* ============================================================= */}
-      <section className="border-t border-black/[0.06] py-28 px-6 lg:px-10">
+      <section className="relative isolate overflow-hidden py-28 px-6 lg:px-10">
+        <GradientBackdrop />
         <div className="max-w-[80rem] mx-auto">
-          <p className="text-[0.78rem] uppercase tracking-[0.18em] text-[#64748B] mb-6">
+          <p className="text-[0.78rem] uppercase tracking-[0.18em] text-white mb-6 font-semibold">
             Beyond cold outbound
           </p>
-          <h2 className="text-[2rem] sm:text-[2.6rem] leading-[1.08] tracking-[-0.025em] font-medium text-[#0B1220] max-w-[44rem] mb-12">
+          <h2 className="text-[2rem] sm:text-[2.6rem] leading-[1.08] tracking-[-0.025em] font-medium text-white max-w-[44rem] mb-12">
             Re-engage every account
             <span className="italic font-normal" style={{ fontFamily: "var(--font-playfair)" }}>
               {" "}already in your CRM
@@ -554,13 +558,10 @@ export default function Home() {
                           </span>
                         </div>
                         <div
-                          className={`absolute inset-0 flex flex-col justify-end p-5 bg-[#0B1220] text-white transition-opacity duration-300 ${imageVisible ? "opacity-0" : "opacity-100"
+                          className={`absolute inset-0 isolate overflow-hidden flex flex-col justify-end p-5 text-white transition-opacity duration-300 ${imageVisible ? "opacity-0" : "opacity-100"
                             }`}
-                          style={{
-                            backgroundImage:
-                              "radial-gradient(80% 60% at 90% 0%, rgba(37,109,133,0.32), transparent 60%), radial-gradient(60% 60% at 0% 100%, rgba(47,111,237,0.18), transparent 60%)",
-                          }}
                         >
+                          <GradientBackdrop />
                           <p className="text-[0.7rem] font-medium uppercase tracking-[0.2em] text-white/55 mb-3">
                             {img.alt}
                           </p>
@@ -581,7 +582,7 @@ export default function Home() {
       {/* ============================================================= */}
       {/*                          BACKED BY                             */}
       {/* ============================================================= */}
-      <section className="border-t border-black/[0.06] py-20 px-6 lg:px-10">
+      <section className="border-t border-black/[0.06] py-14 px-6 lg:px-10">
         <div className="max-w-[80rem] mx-auto flex flex-col items-center text-center">
           <p className="text-[0.74rem] uppercase tracking-[0.2em] text-[#64748B] mb-8">
             Backed by
@@ -701,10 +702,10 @@ export default function Home() {
 function ProductBullet({ label, body }: { label: string; body: string }) {
   return (
     <div>
-      <p className="text-[0.78rem] uppercase tracking-[0.18em] text-[#2F6FED] font-medium mb-2">
+      <p className="text-[0.78rem] uppercase tracking-[0.18em] text-white font-medium mb-2">
         {label}
       </p>
-      <p className="leading-[1.55]">{body}</p>
+      <p className="leading-[1.55] text-white">{body}</p>
     </div>
   );
 }
@@ -750,10 +751,10 @@ function InvestorLink({
 function HeroStat({ value, label }: { value: string; label: string }) {
   return (
     <div>
-      <p className="text-[clamp(1.3rem,calc(1.2vw_+_1rem),1.75rem)] tracking-[-0.02em] font-medium text-[#0B1220] leading-none">
+      <p className="text-[clamp(1.17rem,calc(1.08vw_+_0.9rem),1.575rem)] tracking-[-0.02em] font-medium text-[#0B1220] leading-none">
         {value}
       </p>
-      <p className="mt-2 text-[clamp(0.74rem,calc(0.6vw_+_0.6rem),0.9rem)] text-[#64748B] leading-snug">
+      <p className="mt-2 text-[clamp(0.666rem,calc(0.54vw_+_0.54rem),0.81rem)] text-[#64748B] leading-snug">
         {label}
       </p>
     </div>

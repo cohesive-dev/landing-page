@@ -262,7 +262,7 @@ function SmsBubble({ entry }: { entry: SmsEntry }) {
   return (
     <div className={`flex ${isOutbound ? "justify-start" : "justify-end"}`}>
       <div
-        className={`max-w-[70%] rounded px-4 py-2.5 flex flex-col gap-1 ${isOutbound ? "bg-black text-white" : "bg-gray-100 text-black"
+        className={`max-w-[70%] rounded px-4 py-2.5 flex flex-col gap-1 ${isOutbound ? "bg-[#2f4882] text-white" : "bg-gray-100 text-black"
           }`}
       >
         <div className="flex items-center gap-2 text-[10px] opacity-70">
@@ -285,11 +285,11 @@ function SmsBubble({ entry }: { entry: SmsEntry }) {
 function FakeAudioPlayer() {
   return (
     <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 px-2 py-1">
-      <span className="w-5 h-5 rounded-full bg-[#0B1220] text-white flex items-center justify-center">
+      <span className="w-5 h-5 rounded-full bg-[#2f4882] text-white flex items-center justify-center">
         <PlayIcon size={9} />
       </span>
       <div className="flex-1 h-1 rounded-full bg-gray-200 relative overflow-hidden">
-        <div className="absolute inset-y-0 left-0 w-1/3 bg-[#2F6FED]" />
+        <div className="absolute inset-y-0 left-0 w-1/3 bg-[#2f4882]" />
       </div>
       <span className="text-[9px] text-gray-500">0:38 / 4:12</span>
     </div>
@@ -307,7 +307,7 @@ function ReplyComposer() {
           type="button"
           tabIndex={-1}
           aria-hidden
-          className="flex items-center gap-1.5 px-3 py-2.5 text-[11px] text-white bg-black"
+          className="flex items-center gap-1.5 px-3 py-2.5 text-[11px] text-white bg-[#2f4882]"
         >
           <SendIcon size={11} />
           <span>Send</span>
