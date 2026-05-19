@@ -561,7 +561,7 @@ export default function Home() {
                           className={`absolute inset-0 isolate overflow-hidden flex flex-col justify-end p-5 text-white transition-opacity duration-300 ${imageVisible ? "opacity-0" : "opacity-100"
                             }`}
                         >
-                          <GradientBackdrop />
+                          <GradientBackdrop animated={false} />
                           <p className="text-[0.7rem] font-medium uppercase tracking-[0.2em] text-white/55 mb-3">
                             {img.alt}
                           </p>
