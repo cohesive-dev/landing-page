@@ -213,7 +213,7 @@ export default function Home() {
       {/* ============================================================= */}
       {/*                            HERO                                */}
       {/* ============================================================= */}
-      <section className="relative pt-40 pb-28 px-6 lg:px-10 overflow-hidden">
+      <section className="relative pt-40 pb-36 px-6 lg:px-10 overflow-hidden">
         {/* Hero artwork pinned to the right edge of the viewport */}
         <div
           aria-hidden
