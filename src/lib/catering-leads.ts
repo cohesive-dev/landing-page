@@ -70,6 +70,10 @@ export const UTM_KEYS = [
 export type UtmKey = (typeof UTM_KEYS)[number];
 
 export const WEBHOOK_ENV_VAR = "CATERING_LEADS_WEBHOOK_URL";
+// Kevin 2026-10-12 ("could we just do this via n8n?"): the default destination is the n8n workflow
+// "Cohesive AI catering leads (website) -> Slack group (En, Mario, Christopher)", which re-validates the lead,
+// drops bars / non-food / test identities and posts to the group DM. The env var still overrides it.
+export const DEFAULT_WEBHOOK_URL = "https://cohesive-ai.app.n8n.cloud/webhook/cai-catering-leads-991ad10d836d";
 
 export interface CateringLeadInput {
   offer: string;
@@ -186,7 +190,7 @@ type FetchLike = (
 ) => Promise<{ ok: boolean; status: number; json?: () => Promise<unknown> }>;
 
 // Kevin 2026-10-12: every lead goes to a Slack group DM (En, Mario, Christopher). With both of these set the
-// route posts there directly; otherwise it falls back to CATERING_LEADS_WEBHOOK_URL; with neither, 503.
+// route posts there directly; otherwise it posts to CATERING_LEADS_WEBHOOK_URL, or DEFAULT_WEBHOOK_URL (n8n) when unset.
 export const SLACK_TOKEN_ENV_VAR = "CATERING_LEADS_SLACK_BOT_TOKEN";
 export const SLACK_CHANNEL_ENV_VAR = "CATERING_LEADS_SLACK_CHANNEL";
 
@@ -216,8 +220,8 @@ export function slackLeadText(raw: CateringLeadPayload): string {
  *   2. bars / non-food -> polite end message, NEVER forwarded
  *   3. field validation -> 400
  *   4. Slack token + channel set -> post to the group DM: 200, or 502 if Slack fails (webhook not consulted)
- *   5. else webhook env var unset -> 503 (page shows "please email us"), nothing dropped silently
- *   6. else forward to the webhook -> 200, or 502 if the webhook fails
+ *   5. else forward to CATERING_LEADS_WEBHOOK_URL, or the default n8n webhook -> 200, or 502 if it fails
+ *      (the page then shows "please email us", nothing dropped silently)
  */
 export async function handleCateringLeadSubmission(
   raw: unknown,
@@ -266,16 +270,7 @@ export async function handleCateringLeadSubmission(
     return { status: 200, body: { status: "ok" } };
   }
 
-  const webhookUrl = env[WEBHOOK_ENV_VAR]?.trim();
-  if (!webhookUrl) {
-    return {
-      status: 503,
-      body: {
-        status: "not_configured",
-        message: `We couldn't take your details online right now. Please email us at ${CONTACT_EMAIL}.`,
-      },
-    };
-  }
+  const webhookUrl = env[WEBHOOK_ENV_VAR]?.trim() || DEFAULT_WEBHOOK_URL;
 
   const payload = buildLeadPayload(input as CateringLeadInput, now);
   try {
