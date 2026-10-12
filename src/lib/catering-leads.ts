@@ -91,6 +91,8 @@ export interface CateringLeadInput {
   pageUrl?: string;
   /** Honeypot. Real people never see or fill it. */
   website?: string;
+  /** Sent by the page when a visitor leaves after giving an email or phone without submitting. */
+  partial?: boolean;
 }
 
 export interface CateringLeadPayload {
@@ -114,6 +116,8 @@ export interface CateringLeadPayload {
   fbclid: string;
   page_url: string;
   submitted_at: string;
+  /** true = the visitor left before submitting (only email and/or phone are guaranteed). */
+  partial?: boolean;
 }
 
 const MAX_LEN = 200;
@@ -170,6 +174,7 @@ export function buildLeadPayload(
     fbclid: clean(utm.fbclid, 500),
     page_url: clean(input.pageUrl, 1000),
     submitted_at: now.toISOString(),
+    ...(input.partial === true ? { partial: true } : {}),
   };
 }
 
@@ -204,14 +209,19 @@ export function slackLeadText(raw: CateringLeadPayload): string {
   ) as CateringLeadPayload;
   const address = [p.street, p.city, p.state, p.zip].filter(Boolean).join(", ");
   return [
-    `New catering lead (website, ${OFFER_LABEL[p.offer] ?? p.offer})`,
-    `Business: ${p.business_name} (${p.business_type})`,
-    `Name: ${p.full_name}`,
-    `Phone: ${p.phone}`,
-    `Email: ${p.email}`,
+    p.partial
+      ? `Partial catering lead (website, ${OFFER_LABEL[p.offer] ?? p.offer}): left without submitting - follow up`
+      : `New catering lead (website, ${OFFER_LABEL[p.offer] ?? p.offer})`,
+    (p.business_name || p.business_type) &&
+      `Business: ${p.business_name}${p.business_type ? ` (${p.business_type})` : ""}`,
+    p.full_name && `Name: ${p.full_name}`,
+    p.phone && `Phone: ${p.phone}`,
+    p.email && `Email: ${p.email}`,
     address && `Address: ${address}`,
     p.utm_campaign && `Campaign: ${p.utm_campaign}${p.utm_content ? ` / ${p.utm_content}` : ""}`,
-    "They were asked to book a demo (calendly.com/cohesiveapp/demo). Booking status will be posted in this thread; call them if they don't book.",
+    p.partial
+      ? "They left the form before submitting, so they were not asked to book. Reach out with whatever they gave."
+      : "They were asked to book a demo (calendly.com/cohesiveapp/demo). Booking status will be posted in this thread; call them if they don't book.",
   ].filter(Boolean).join("\n");
 }
 
@@ -240,9 +250,17 @@ export async function handleCateringLeadSubmission(
     return { status: 200, body: { status: "disqualified", message: DISQUALIFIED_MESSAGE } };
   }
 
-  const errors = validateLead(input);
-  if (Object.keys(errors).length > 0) {
-    return { status: 400, body: { status: "invalid", errors } };
+  const partial = input.partial === true;
+  if (partial) {
+    // An unfinished form: a valid email or phone is enough; everything else is sent as typed (or empty).
+    const okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean(input.email));
+    const okPhone = clean(input.phone).replace(/\D/g, "").length >= 10;
+    if (!okEmail && !okPhone) return { status: 400, body: { status: "invalid", errors: {} } };
+  } else {
+    const errors = validateLead(input);
+    if (Object.keys(errors).length > 0) {
+      return { status: 400, body: { status: "invalid", errors } };
+    }
   }
 
   const slackToken = env[SLACK_TOKEN_ENV_VAR]?.trim();
