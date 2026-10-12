@@ -73,7 +73,7 @@ export type UtmKey = (typeof UTM_KEYS)[number];
 export const WEBHOOK_ENV_VAR = "CATERING_LEADS_WEBHOOK_URL";
 // Kevin 2026-10-12 ("could we just do this via n8n?"): the default destination is the n8n workflow
 // "Cohesive AI catering leads (website) -> Slack group (En, Mario, Christopher)", which re-validates the lead,
-// drops bars / non-food / test identities and posts to the group DM. The env var still overrides it.
+// drops bars / food trucks / non-food / test identities and posts to the group DM. The env var still overrides it.
 export const DEFAULT_WEBHOOK_URL = "https://cohesive-ai.app.n8n.cloud/webhook/cai-catering-leads-991ad10d836d";
 
 export interface CateringLeadInput {
@@ -218,7 +218,7 @@ export function slackLeadText(raw: CateringLeadPayload): string {
 /**
  * Server-side submit handler. Order matters:
  *   1. honeypot -> pretend success, drop it
- *   2. bars / non-food -> polite end message, NEVER forwarded
+ *   2. bars / food trucks / non-food -> polite end message, NEVER forwarded
  *   3. field validation -> 400
  *   4. Slack token + channel set -> post to the group DM: 200, or 502 if Slack fails (webhook not consulted)
  *   5. else forward to CATERING_LEADS_WEBHOOK_URL, or the default n8n webhook -> 200, or 502 if it fails

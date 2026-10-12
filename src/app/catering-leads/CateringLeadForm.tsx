@@ -177,8 +177,11 @@ export default function CateringLeadForm({ offer }: { offer: OfferId }) {
       </Field>
 
       <Field label="Street address" name="street_address" error={errors.street}>
-        <input id="street_address" name="street_address" type="text" autoComplete="street-address" required className={inputClass} />
+        <input id="street_address" name="street_address" type="text" autoComplete="street-address" required aria-describedby="street_address-hint" className={inputClass} />
       </Field>
+      <p id="street_address-hint" className="-mt-2 text-[0.8rem] text-[#5B6473]">
+        Caterers without a storefront: use the address you cook or work from.
+      </p>
 
       <div className="grid grid-cols-6 gap-4">
         <div className="col-span-6 sm:col-span-3">
@@ -235,7 +238,10 @@ function Field({
       {isValidElement(children)
         ? cloneElement(children as React.ReactElement<Record<string, unknown>>, {
             "aria-invalid": error ? true : undefined,
-            "aria-describedby": error ? `${name}-error` : undefined,
+            "aria-describedby":
+              [(children.props as Record<string, unknown>)["aria-describedby"], error && `${name}-error`]
+                .filter(Boolean)
+                .join(" ") || undefined,
           })
         : children}
       {error && (
