@@ -174,3 +174,48 @@ test("a newline in a field cannot forge an Email line", async () => {
   assert.equal((text.match(/^Email: /gm) || []).length, 1);
   assert.match(text, new RegExp(`^Email: ${valid.email.toLowerCase()}$`, "m"));
 });
+
+test("partial: an email alone is enough and is forwarded flagged partial", async () => {
+  const f = fakeFetch();
+  const res = await handleCateringLeadSubmission({ partial: true, offer: "monthly", email: "ana@example.com" }, {}, f, NOW);
+  assert.equal(res.status, 200);
+  const body = JSON.parse(f.calls[0].init.body);
+  assert.equal(body.partial, true);
+  assert.equal(body.email, "ana@example.com");
+});
+
+test("partial: no valid email or phone is rejected and nothing is sent", async () => {
+  const f = fakeFetch();
+  const res = await handleCateringLeadSubmission({ partial: true, offer: "monthly", email: "nope", phone: "123" }, {}, f, NOW);
+  assert.equal(res.status, 400);
+  assert.equal(f.calls.length, 0);
+});
+
+test("partial: a disqualified type is never forwarded", async () => {
+  const f = fakeFetch();
+  const res = await handleCateringLeadSubmission({ partial: true, email: "a@b.co", businessType: "Food truck / cart" }, {}, f, NOW);
+  assert.equal(res.body.status, "disqualified");
+  assert.equal(f.calls.length, 0);
+});
+
+test("partial slack text says unfinished, skips empty lines, and does not claim a booking ask", async () => {
+  const { slackLeadText, buildLeadPayload } = await import("../src/lib/catering-leads.ts");
+  const text = slackLeadText(buildLeadPayload({ partial: true, offer: "per-lead", email: "a@b.co" }, NOW));
+  assert.match(text, /^Partial catering lead \(website, \$5\/lead offer\)/);
+  assert.doesNotMatch(text, /^New catering lead/m);
+  assert.doesNotMatch(text, /^(Name|Phone|Business): *$/m);
+  assert.doesNotMatch(text, /asked to book a demo/);
+});
+
+test("address parts from Google Places components", async () => {
+  const { addressParts } = await import("../src/lib/address-parts.ts");
+  const parts = addressParts([
+    { longText: "1600", types: ["street_number"] },
+    { longText: "Amphitheatre Parkway", shortText: "Amphitheatre Pkwy", types: ["route"] },
+    { longText: "Mountain View", types: ["locality", "political"] },
+    { longText: "California", shortText: "CA", types: ["administrative_area_level_1"] },
+    { longText: "94043", types: ["postal_code"] },
+  ]);
+  assert.deepEqual(parts, { street: "1600 Amphitheatre Pkwy", city: "Mountain View", state: "CA", zip: "94043" });
+  assert.deepEqual(addressParts(undefined), { street: "", city: "", state: "", zip: "" });
+});

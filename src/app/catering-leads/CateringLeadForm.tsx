@@ -1,6 +1,8 @@
 "use client";
 
-import { cloneElement, isValidElement, useState, type FormEvent } from "react";
+import { cloneElement, isValidElement, useEffect, useRef, useState, type FormEvent } from "react";
+import StreetAutocomplete from "./StreetAutocomplete";
+import type { AddressParts } from "@/lib/address-parts";
 import {
   BUSINESS_TYPES,
   CONTACT_EMAIL,
@@ -31,6 +33,75 @@ export default function CateringLeadForm({ offer }: { offer: OfferId }) {
   const [phase, setPhase] = useState<Phase>("form");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [bookingUrl, setBookingUrl] = useState<string | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const phaseRef = useRef<Phase>("form");
+  const partialSent = useRef(false);
+  useEffect(() => {
+    phaseRef.current = phase;
+  }, [phase]);
+
+  // Kevin 2026-10-12: "do we capture partial form fills?" A visitor who has typed a valid email or phone and
+  // leaves without submitting is sent once as a partial (the group sees "didn't finish"). Never for a
+  // disqualified type, never after a submit.
+  useEffect(() => {
+    function capture() {
+      const form = formRef.current;
+      if (!form || partialSent.current || phaseRef.current !== "form") return;
+      const fd = new FormData(form);
+      const get = (k: string) => String(fd.get(k) ?? "").trim();
+      const email = get("email");
+      const phone = get("tel");
+      const okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      const okPhone = phone.replace(/\D/g, "").length >= 10;
+      if ((!okEmail && !okPhone) || get("hp_field") || isDisqualifiedBusinessType(get("business_type"))) return;
+      const body = JSON.stringify({
+        partial: true,
+        offer,
+        fullName: get("name"),
+        email: okEmail ? email : "",
+        phone: okPhone ? phone : "",
+        businessType: get("business_type"),
+        businessName: get("organization"),
+        street: get("street_address"),
+        city: get("city"),
+        state: get("state"),
+        zip: get("postal_code"),
+        utm: readUtm(),
+        pageUrl: window.location.href,
+      });
+      partialSent.current = true;
+      const blob = new Blob([body], { type: "application/json" });
+      if (!navigator.sendBeacon?.("/api/catering-leads", blob)) {
+        void fetch("/api/catering-leads", { method: "POST", headers: { "Content-Type": "application/json" }, body, keepalive: true }).catch(() => {});
+      }
+    }
+    // Real exit = pagehide. A tab left in the background counts only after 10 minutes (switching tabs to find
+    // an address is not abandoning the form); coming back cancels it.
+    let hiddenTimer: ReturnType<typeof setTimeout> | null = null;
+    const onVisibility = () => {
+      if (hiddenTimer) { clearTimeout(hiddenTimer); hiddenTimer = null; }
+      if (document.visibilityState === "hidden") hiddenTimer = setTimeout(capture, 10 * 60 * 1000);
+    };
+    window.addEventListener("pagehide", capture);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      if (hiddenTimer) clearTimeout(hiddenTimer);
+      window.removeEventListener("pagehide", capture);
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
+  }, [offer]);
+
+  function fillAddress(parts: AddressParts) {
+    const form = formRef.current;
+    if (!form) return;
+    const set = (name: string, value: string) => {
+      const el = form.elements.namedItem(name);
+      if (el instanceof HTMLInputElement) el.value = value;   // empty clears it, so two addresses never mix
+    };
+    set("city", parts.city);
+    set("state", parts.state);
+    set("postal_code", parts.zip);
+  }
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -139,6 +210,7 @@ export default function CateringLeadForm({ offer }: { offer: OfferId }) {
         </Panel>
       )}
     <form
+      ref={formRef}
       hidden={phase === "disqualified"}
       onSubmit={onSubmit}
       noValidate
@@ -177,7 +249,7 @@ export default function CateringLeadForm({ offer }: { offer: OfferId }) {
       </Field>
 
       <Field label="Street address" name="street_address" error={errors.street}>
-        <input id="street_address" name="street_address" type="text" autoComplete="street-address" required aria-describedby="street_address-hint" className={inputClass} />
+        <StreetAutocomplete className={inputClass} aria-describedby="street_address-hint" onPick={fillAddress} />
       </Field>
       <p id="street_address-hint" className="-mt-2 text-[0.8rem] text-[#5B6473]">
         Caterers without a storefront: use the address you cook or work from.
@@ -214,6 +286,10 @@ export default function CateringLeadForm({ offer }: { offer: OfferId }) {
       >
         {phase === "sending" ? "Sending..." : "Get catering leads"}
       </button>
+      <p className="text-[0.75rem] leading-relaxed text-[#5B6473]">
+        Contact details you enter may be saved before you submit, so we can follow up on an unfinished request.{" "}
+        <a href="/privacy" className="underline">Privacy policy</a>
+      </p>
     </form>
     </>
   );
