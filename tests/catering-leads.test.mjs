@@ -48,8 +48,8 @@ test("bars and non-food businesses are blocked and never forwarded", async () =>
     assert.equal(res.body.message, "Thanks - this offer is for restaurants and caterers right now.");
     assert.equal(f.calls.length, 0, "a disqualified lead must not be posted");
   }
-  assert.equal(isDisqualifiedBusinessType("Caterer"), false);
-  assert.equal(isDisqualifiedBusinessType("Food truck / cart"), false);
+  assert.equal(isDisqualifiedBusinessType("Caterer only (no physical location)"), false);
+  assert.equal(isDisqualifiedBusinessType("Food truck / cart"), true); // Kevin 2026-10-12
 });
 
 test("a valid submission builds the expected payload and posts it once", async () => {
