@@ -34,7 +34,7 @@ export const BUSINESS_TYPES = [
   "Fine dining",
   "Bar / tavern / brewery",
   "Food truck / cart",
-  "Caterer",
+  "Caterer only (no physical location)",
   "Not a food business",
 ] as const;
 
@@ -43,6 +43,7 @@ export type BusinessType = (typeof BUSINESS_TYPES)[number];
 /** These never become a lead: no client-side submit, no webhook post. */
 export const DISQUALIFIED_BUSINESS_TYPES: readonly BusinessType[] = [
   "Bar / tavern / brewery",
+  "Food truck / cart", // Kevin 2026-10-12: food trucks decline too
   "Not a food business",
 ];
 
