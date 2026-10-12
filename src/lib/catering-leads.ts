@@ -183,7 +183,29 @@ export interface SubmitResult {
 type FetchLike = (
   url: string,
   init: { method: string; headers: Record<string, string>; body: string; signal?: AbortSignal },
-) => Promise<{ ok: boolean; status: number }>;
+) => Promise<{ ok: boolean; status: number; json?: () => Promise<unknown> }>;
+
+// Kevin 2026-10-12: every lead goes to a Slack group DM (En, Mario, Christopher). With both of these set the
+// route posts there directly; otherwise it falls back to CATERING_LEADS_WEBHOOK_URL; with neither, 503.
+export const SLACK_TOKEN_ENV_VAR = "CATERING_LEADS_SLACK_BOT_TOKEN";
+export const SLACK_CHANNEL_ENV_VAR = "CATERING_LEADS_SLACK_CHANNEL";
+
+const OFFER_LABEL: Record<string, string> = { "per-lead": "$5/lead offer", monthly: "$30/mo offer" };
+
+// The "Email:" line is read back by the booking checker (Calendly match), so keep it on its own line.
+export function slackLeadText(p: CateringLeadPayload): string {
+  const address = [p.street, p.city, p.state, p.zip].filter(Boolean).join(", ");
+  return [
+    `New catering lead (website, ${OFFER_LABEL[p.offer] ?? p.offer})`,
+    `Business: ${p.business_name} (${p.business_type})`,
+    `Name: ${p.full_name}`,
+    `Phone: ${p.phone}`,
+    `Email: ${p.email}`,
+    address && `Address: ${address}`,
+    p.utm_campaign && `Campaign: ${p.utm_campaign}${p.utm_content ? ` / ${p.utm_content}` : ""}`,
+    "They were asked to book a demo (calendly.com/cohesiveapp/demo). Booking status will be posted in this thread; call them if they don't book.",
+  ].filter(Boolean).join("\n");
+}
 
 /**
  * Server-side submit handler. Order matters:
@@ -212,6 +234,32 @@ export async function handleCateringLeadSubmission(
   const errors = validateLead(input);
   if (Object.keys(errors).length > 0) {
     return { status: 400, body: { status: "invalid", errors } };
+  }
+
+  const slackToken = env[SLACK_TOKEN_ENV_VAR]?.trim();
+  const slackChannel = env[SLACK_CHANNEL_ENV_VAR]?.trim();
+  if (slackToken && slackChannel) {
+    const payload = buildLeadPayload(input as CateringLeadInput, now);
+    try {
+      const res = await fetchImpl("https://slack.com/api/chat.postMessage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json; charset=utf-8", Authorization: `Bearer ${slackToken}` },
+        body: JSON.stringify({ channel: slackChannel, text: slackLeadText(payload), unfurl_links: false }),
+        signal: AbortSignal.timeout(10_000),
+      });
+      // Slack answers 200 with {ok:false} on errors, so the body decides.
+      const data = (res.json ? await res.json() : {}) as { ok?: boolean };
+      if (!res.ok || data.ok !== true) throw new Error(`slack responded ${res.status}`);
+    } catch {
+      return {
+        status: 502,
+        body: {
+          status: "upstream_error",
+          message: `We couldn't take your details online right now. Please email us at ${CONTACT_EMAIL}.`,
+        },
+      };
+    }
+    return { status: 200, body: { status: "ok" } };
   }
 
   const webhookUrl = env[WEBHOOK_ENV_VAR]?.trim();

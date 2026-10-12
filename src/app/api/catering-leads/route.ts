@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { handleCateringLeadSubmission } from "@/lib/catering-leads";
 
-// Destination is CATERING_LEADS_WEBHOOK_URL (intentionally NOT set yet - this
-// page is a draft). Unset -> 503 and the page asks the visitor to email us.
+// Destination: the Slack group DM (CATERING_LEADS_SLACK_BOT_TOKEN + CATERING_LEADS_SLACK_CHANNEL), else
+// CATERING_LEADS_WEBHOOK_URL. Neither set -> 503 and the page asks the visitor to email us.
 export async function POST(request: NextRequest) {
   let body: unknown;
   try {

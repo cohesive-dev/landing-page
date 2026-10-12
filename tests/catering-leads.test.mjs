@@ -138,3 +138,31 @@ test("calendly booking url prefills name/email and tags the offer", async () => 
   assert.equal(u.searchParams.get("utm_medium"), "monthly");
   assert.equal(u.searchParams.get("utm_campaign"), "cai-catering");
 });
+
+test("slack mode posts the lead to the group DM with an Email line", async () => {
+  const calls = [];
+  const fakeFetch = async (url, init) => { calls.push({ url, init }); return { ok: true, status: 200, json: async () => ({ ok: true }) }; };
+  const env = { CATERING_LEADS_SLACK_BOT_TOKEN: "xoxb-test", CATERING_LEADS_SLACK_CHANNEL: "C0TEST" };
+  const r = await handleCateringLeadSubmission(valid, env, fakeFetch);
+  assert.equal(r.status, 200);
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].url, "https://slack.com/api/chat.postMessage");
+  assert.equal(calls[0].init.headers.Authorization, "Bearer xoxb-test");
+  const body = JSON.parse(calls[0].init.body);
+  assert.equal(body.channel, "C0TEST");
+  assert.match(body.text, /^New catering lead \(website, /);
+  assert.match(body.text, new RegExp(`\\nEmail: ${valid.email.toLowerCase()}\\n`));
+});
+
+test("slack ok:false is a 502, never a silent success", async () => {
+  const fakeFetch = async () => ({ ok: true, status: 200, json: async () => ({ ok: false, error: "channel_not_found" }) });
+  const r = await handleCateringLeadSubmission(valid, { CATERING_LEADS_SLACK_BOT_TOKEN: "x", CATERING_LEADS_SLACK_CHANNEL: "C" }, fakeFetch);
+  assert.equal(r.status, 502);
+});
+
+test("bars never reach slack", async () => {
+  let n = 0;
+  const r = await handleCateringLeadSubmission({ ...valid, businessType: "Bar / tavern / brewery" }, { CATERING_LEADS_SLACK_BOT_TOKEN: "x", CATERING_LEADS_SLACK_CHANNEL: "C" }, async () => { n++; return { ok: true, status: 200 }; });
+  assert.equal(r.body.status, "disqualified");
+  assert.equal(n, 0);
+});
