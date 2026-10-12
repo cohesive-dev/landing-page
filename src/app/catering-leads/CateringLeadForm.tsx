@@ -10,8 +10,7 @@ import {
   validateLead,
   type CateringLeadInput,
   type OfferId,
-  type UtmKey,
-} from "@/lib/catering-leads";
+  type UtmKey, calendlyBookingUrl } from "@/lib/catering-leads";
 
 type Phase = "form" | "sending" | "done" | "disqualified" | "fallback";
 
@@ -31,6 +30,7 @@ function readUtm(): Partial<Record<UtmKey, string>> {
 export default function CateringLeadForm({ offer }: { offer: OfferId }) {
   const [phase, setPhase] = useState<Phase>("form");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [bookingUrl, setBookingUrl] = useState<string | null>(null);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -74,9 +74,11 @@ export default function CateringLeadForm({ offer }: { offer: OfferId }) {
       if (res.ok && data.status === "disqualified") {
         setPhase("disqualified");
       } else if (res.ok) {
-        // TODO(meta-pixel): this repo does not load a Meta pixel directly (only GTM
-        // GTM-WJJNZWWC). When one is added, fire fbq("track", "Lead", { content_name:
-        // `catering-leads-${offer}` }) here, after a confirmed 200.
+        // The Cohesive AI pixel (610694474798655) loads through GTM; fire Lead only after a confirmed 200.
+        const w = window as unknown as { fbq?: (...a: unknown[]) => void; dataLayer?: unknown[] };
+        w.fbq?.("track", "Lead", { content_name: `catering-leads-${offer}` });
+        w.dataLayer?.push({ event: "catering_lead", offer });
+        setBookingUrl(calendlyBookingUrl({ fullName: input.fullName, email: input.email, offer, utm: input.utm }));
         setPhase("done");
       } else if (res.status === 400 && data.errors && Object.keys(data.errors).length) {
         setErrors(data.errors);
@@ -94,7 +96,15 @@ export default function CateringLeadForm({ offer }: { offer: OfferId }) {
     return (
       <Panel>
         <p className="text-[1.15rem] font-medium">Thanks - we got your details.</p>
-        <p className="mt-2 text-[#475569]">We&apos;ll be in touch to go over your plan before you pay anything.</p>
+        <p className="mt-2 text-[#475569]">Last step: pick a time for a quick call to go over your plan before you pay anything.</p>
+        {bookingUrl && (
+          <a
+            href={bookingUrl}
+            className="mt-5 inline-block rounded-full bg-[#0B1220] px-6 py-3 text-[0.95rem] font-medium text-white hover:opacity-90"
+          >
+            Book a time
+          </a>
+        )}
       </Panel>
     );
   }

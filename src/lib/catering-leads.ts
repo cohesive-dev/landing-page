@@ -246,3 +246,19 @@ export async function handleCateringLeadSubmission(
 
   return { status: 200, body: { status: "ok" } };
 }
+
+// Kevin 2026-10-12: after the form, ask the lead to book a demo. Name and email are prefilled, and the
+// utm fields tag the booking so a Calendly export / API read can split booked vs not-booked leads (the
+// team calls the ones who don't book).
+export const CALENDLY_DEMO_URL = "https://calendly.com/cohesiveapp/demo";
+
+export function calendlyBookingUrl(input: { fullName?: string; email?: string; offer: string; utm?: Record<string, string | undefined> }): string {
+  const url = new URL(CALENDLY_DEMO_URL);
+  if (input.fullName?.trim()) url.searchParams.set("name", input.fullName.trim());
+  if (input.email?.trim()) url.searchParams.set("email", input.email.trim());
+  url.searchParams.set("utm_source", "catering-leads");
+  url.searchParams.set("utm_medium", input.offer);
+  if (input.utm?.utm_campaign) url.searchParams.set("utm_campaign", input.utm.utm_campaign);
+  if (input.utm?.utm_content) url.searchParams.set("utm_content", input.utm.utm_content);
+  return url.toString();
+}

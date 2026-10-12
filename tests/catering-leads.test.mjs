@@ -127,3 +127,14 @@ test("honeypot submissions are dropped silently", async () => {
   assert.equal(res.status, 200);
   assert.equal(f.calls.length, 0);
 });
+
+test("calendly booking url prefills name/email and tags the offer", async () => {
+  const { calendlyBookingUrl } = await import("../src/lib/catering-leads.ts");
+  const u = new URL(calendlyBookingUrl({ fullName: " Ana Diaz ", email: "ana@example.com", offer: "monthly", utm: { utm_campaign: "cai-catering" } }));
+  assert.equal(u.origin + u.pathname, "https://calendly.com/cohesiveapp/demo");
+  assert.equal(u.searchParams.get("name"), "Ana Diaz");
+  assert.equal(u.searchParams.get("email"), "ana@example.com");
+  assert.equal(u.searchParams.get("utm_source"), "catering-leads");
+  assert.equal(u.searchParams.get("utm_medium"), "monthly");
+  assert.equal(u.searchParams.get("utm_campaign"), "cai-catering");
+});

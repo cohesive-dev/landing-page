@@ -7,7 +7,7 @@ import { OFFERS, resolveOffer } from "@/lib/catering-leads";
 export const metadata: Metadata = {
   title: "Corporate catering leads for restaurants | Cohesive",
   description:
-    "We find offices near your restaurant that order catered team lunches, email them for you, and send you the ones who want to order.",
+    "We find offices near your restaurant that order catered team lunches, email them for you, and send you the ones who are interested.",
   robots: { index: false, follow: false },
 };
 
@@ -24,7 +24,7 @@ const steps = [
   },
   {
     index: "03.",
-    title: "We send you the ones who want to order",
+    title: "We send you the ones who are interested",
     body: "You get their details and reply to them.",
   },
 ];
@@ -79,7 +79,7 @@ export default async function CateringLeadsPage({
               </h1>
               <p className="mt-6 text-[1.05rem] leading-[1.55] text-[#475569] max-w-[34rem]">
                 We find offices near your restaurant that order catered team lunches, email them
-                for you, and send you the ones who want to order.
+                for you, and send you the ones who are interested.
               </p>
               <p className="mt-4 text-[0.95rem] text-[#0B1220] font-medium">{priceLine}</p>
             </div>
