@@ -71,7 +71,7 @@ export default async function CateringLeadsPage({
         <section className="px-6 lg:px-10 pt-8 pb-20">
           <div className="max-w-[72rem] mx-auto grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
             <div className="lg:col-span-6 lg:pt-10">
-              <p className="text-[0.702rem] uppercase tracking-[0.18em] text-[#64748B] mb-5">
+              <p className="text-[0.702rem] uppercase tracking-[0.18em] text-[#5B6473] mb-5">
                 For restaurants and caterers
               </p>
               <h1 className="text-[clamp(2rem,4.6vw,3.4rem)] leading-[1.05] tracking-[-0.03em] font-medium">
@@ -120,7 +120,7 @@ export default async function CateringLeadsPage({
         </section>
       </main>
 
-      <footer className="px-6 lg:px-10 py-8 text-[0.85rem] text-[#64748B]">
+      <footer className="px-6 lg:px-10 py-8 text-[0.85rem] text-[#5B6473]">
         <div className="max-w-[72rem] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <p>© Cohesive</p>
           <div className="flex gap-8">

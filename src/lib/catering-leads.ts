@@ -193,7 +193,10 @@ export const SLACK_CHANNEL_ENV_VAR = "CATERING_LEADS_SLACK_CHANNEL";
 const OFFER_LABEL: Record<string, string> = { "per-lead": "$5/lead offer", monthly: "$30/mo offer" };
 
 // The "Email:" line is read back by the booking checker (Calendly match), so keep it on its own line.
-export function slackLeadText(p: CateringLeadPayload): string {
+export function slackLeadText(raw: CateringLeadPayload): string {
+  const p = Object.fromEntries(
+    Object.entries(raw).map(([k, v]) => [k, typeof v === "string" ? v.replace(/[\r\n\u2028\u2029]+/g, " ").trim() : v]),
+  ) as CateringLeadPayload;
   const address = [p.street, p.city, p.state, p.zip].filter(Boolean).join(", ");
   return [
     `New catering lead (website, ${OFFER_LABEL[p.offer] ?? p.offer})`,
@@ -212,8 +215,9 @@ export function slackLeadText(p: CateringLeadPayload): string {
  *   1. honeypot -> pretend success, drop it
  *   2. bars / non-food -> polite end message, NEVER forwarded
  *   3. field validation -> 400
- *   4. webhook env var unset -> 503 (page shows "please email us"), nothing dropped silently
- *   5. forward to webhook -> 200, or 502 if the webhook fails
+ *   4. Slack token + channel set -> post to the group DM: 200, or 502 if Slack fails (webhook not consulted)
+ *   5. else webhook env var unset -> 503 (page shows "please email us"), nothing dropped silently
+ *   6. else forward to the webhook -> 200, or 502 if the webhook fails
  */
 export async function handleCateringLeadSubmission(
   raw: unknown,
@@ -303,7 +307,7 @@ export const CALENDLY_DEMO_URL = "https://calendly.com/cohesiveapp/demo";
 export function calendlyBookingUrl(input: { fullName?: string; email?: string; offer: string; utm?: Record<string, string | undefined> }): string {
   const url = new URL(CALENDLY_DEMO_URL);
   if (input.fullName?.trim()) url.searchParams.set("name", input.fullName.trim());
-  if (input.email?.trim()) url.searchParams.set("email", input.email.trim());
+  if (input.email?.trim()) url.searchParams.set("email", input.email.trim().toLowerCase());
   url.searchParams.set("utm_source", "catering-leads");
   url.searchParams.set("utm_medium", input.offer);
   if (input.utm?.utm_campaign) url.searchParams.set("utm_campaign", input.utm.utm_campaign);

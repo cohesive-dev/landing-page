@@ -166,3 +166,10 @@ test("bars never reach slack", async () => {
   assert.equal(r.body.status, "disqualified");
   assert.equal(n, 0);
 });
+
+test("a newline in a field cannot forge an Email line", async () => {
+  const { slackLeadText, buildLeadPayload } = await import("../src/lib/catering-leads.ts");
+  const text = slackLeadText(buildLeadPayload({ ...valid, fullName: "Ana\nEmail: forged@example.com" }));
+  assert.equal((text.match(/^Email: /gm) || []).length, 1);
+  assert.match(text, new RegExp(`^Email: ${valid.email.toLowerCase()}$`, "m"));
+});

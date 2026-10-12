@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { cloneElement, isValidElement, useState, type FormEvent } from "react";
 import {
   BUSINESS_TYPES,
   CONTACT_EMAIL,
@@ -109,21 +109,6 @@ export default function CateringLeadForm({ offer }: { offer: OfferId }) {
     );
   }
 
-  if (phase === "disqualified") {
-    return (
-      <Panel>
-        <p className="text-[1.15rem] font-medium">{DISQUALIFIED_MESSAGE}</p>
-        <button
-          type="button"
-          onClick={() => setPhase("form")}
-          className="mt-4 text-[0.85rem] text-[#64748B] underline underline-offset-4 hover:text-[#0B1220] cursor-pointer"
-        >
-          Picked the wrong business type? Go back
-        </button>
-      </Panel>
-    );
-  }
-
   if (phase === "fallback") {
     return (
       <Panel>
@@ -140,7 +125,21 @@ export default function CateringLeadForm({ offer }: { offer: OfferId }) {
   }
 
   return (
+    <>
+      {phase === "disqualified" && (
+        <Panel>
+          <p className="text-[1.15rem] font-medium">{DISQUALIFIED_MESSAGE}</p>
+          <button
+            type="button"
+            onClick={() => setPhase("form")}
+            className="mt-4 text-[0.85rem] text-[#5B6473] underline underline-offset-4 hover:text-[#0B1220] cursor-pointer"
+          >
+            Picked the wrong business type? Go back
+          </button>
+        </Panel>
+      )}
     <form
+      hidden={phase === "disqualified"}
       onSubmit={onSubmit}
       noValidate
       className="relative rounded-2xl bg-white border border-black/[0.08] shadow-[0_20px_40px_rgba(11,18,32,0.06)] p-6 sm:p-8 space-y-4"
@@ -213,6 +212,7 @@ export default function CateringLeadForm({ offer }: { offer: OfferId }) {
         {phase === "sending" ? "Sending..." : "Get catering leads"}
       </button>
     </form>
+    </>
   );
 }
 
@@ -232,8 +232,17 @@ function Field({
       <label htmlFor={name} className="block text-[0.85rem] text-[#475569] mb-1.5">
         {label}
       </label>
-      {children}
-      {error && <p className="mt-1 text-[0.8rem] text-[#B42318]">{error}</p>}
+      {isValidElement(children)
+        ? cloneElement(children as React.ReactElement<Record<string, unknown>>, {
+            "aria-invalid": error ? true : undefined,
+            "aria-describedby": error ? `${name}-error` : undefined,
+          })
+        : children}
+      {error && (
+        <p id={`${name}-error`} role="alert" className="mt-1 text-[0.8rem] text-[#B42318]">
+          {error}
+        </p>
+      )}
     </div>
   );
 }
