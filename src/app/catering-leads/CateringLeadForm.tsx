@@ -17,7 +17,7 @@ import {
 type Phase = "form" | "sending" | "done" | "disqualified" | "fallback";
 
 const inputClass =
-  "w-full rounded-lg border border-black/15 bg-white px-3.5 py-2.5 text-[0.95rem] text-[#0B1220] placeholder:text-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-[#256D85]/40 focus:border-[#256D85]";
+  "w-full rounded-lg border border-black/15 bg-white px-3.5 py-2.5 text-base sm:text-[0.95rem] text-[#0B1220] placeholder:text-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-[#256D85]/40 focus:border-[#256D85]";
 
 function readUtm(): Partial<Record<UtmKey, string>> {
   const params = new URLSearchParams(window.location.search);
