@@ -28,7 +28,7 @@ A modern, responsive landing page for Cohesive AI, an AI-native CRM designed spe
 
 ### Prerequisites
 
-- Node.js 20.9.0 or later
+- Node.js 22.6 or later (npm test uses native TypeScript type stripping)
 - npm or yarn
 
 ### Installation
