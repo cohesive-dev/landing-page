@@ -86,6 +86,12 @@ export default async function CateringLeadsPage({
 
             <div className="lg:col-span-6">
               <CateringLeadForm offer={offer} />
+              {/* Kevin 2026-10-12: offer terms, very small gray text. */}
+              <p className="mt-4 text-[0.68rem] leading-snug text-[#5B6473]">
+                Offer Terms: This software discount is available regardless of whether you purchase insurance through
+                us. No insurance purchase or quote is required. Offer is subject to our standard customer qualification
+                and eligibility criteria.
+              </p>
             </div>
           </div>
         </section>
