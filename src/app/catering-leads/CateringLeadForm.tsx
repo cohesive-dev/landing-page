@@ -75,10 +75,17 @@ export default function CateringLeadForm({ offer }: { offer: OfferId }) {
         void fetch("/api/catering-leads", { method: "POST", headers: { "Content-Type": "application/json" }, body, keepalive: true }).catch(() => {});
       }
     }
-    const onVisibility = () => { if (document.visibilityState === "hidden") capture(); };
+    // Real exit = pagehide. A tab left in the background counts only after 10 minutes (switching tabs to find
+    // an address is not abandoning the form); coming back cancels it.
+    let hiddenTimer: ReturnType<typeof setTimeout> | null = null;
+    const onVisibility = () => {
+      if (hiddenTimer) { clearTimeout(hiddenTimer); hiddenTimer = null; }
+      if (document.visibilityState === "hidden") hiddenTimer = setTimeout(capture, 10 * 60 * 1000);
+    };
     window.addEventListener("pagehide", capture);
     document.addEventListener("visibilitychange", onVisibility);
     return () => {
+      if (hiddenTimer) clearTimeout(hiddenTimer);
       window.removeEventListener("pagehide", capture);
       document.removeEventListener("visibilitychange", onVisibility);
     };
@@ -89,7 +96,7 @@ export default function CateringLeadForm({ offer }: { offer: OfferId }) {
     if (!form) return;
     const set = (name: string, value: string) => {
       const el = form.elements.namedItem(name);
-      if (el instanceof HTMLInputElement && value) el.value = value;
+      if (el instanceof HTMLInputElement) el.value = value;   // empty clears it, so two addresses never mix
     };
     set("city", parts.city);
     set("state", parts.state);
@@ -242,7 +249,7 @@ export default function CateringLeadForm({ offer }: { offer: OfferId }) {
       </Field>
 
       <Field label="Street address" name="street_address" error={errors.street}>
-        <StreetAutocomplete className={inputClass} describedBy="street_address-hint" onPick={fillAddress} />
+        <StreetAutocomplete className={inputClass} aria-describedby="street_address-hint" onPick={fillAddress} />
       </Field>
       <p id="street_address-hint" className="-mt-2 text-[0.8rem] text-[#5B6473]">
         Caterers without a storefront: use the address you cook or work from.

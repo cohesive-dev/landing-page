@@ -14,11 +14,13 @@ type Suggestion = { placeId: string; text: string };
 export default function StreetAutocomplete({
   className,
   onPick,
-  describedBy,
+  "aria-describedby": describedBy,
+  "aria-invalid": invalid,
 }: {
   className: string;
   onPick: (parts: AddressParts) => void;
-  describedBy?: string;
+  "aria-describedby"?: string;
+  "aria-invalid"?: boolean;
 }) {
   const [items, setItems] = useState<Suggestion[]>([]);
   const [open, setOpen] = useState(false);
@@ -26,6 +28,8 @@ export default function StreetAutocomplete({
   const session = useRef<string>("");
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  // Bumped on every keystroke and pick: a late suggestion list or place lookup applies only if nothing changed since.
+  const version = useRef(0);
 
   useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
 
@@ -37,6 +41,7 @@ export default function StreetAutocomplete({
   function query(text: string) {
     if (timer.current) clearTimeout(timer.current);
     if (text.trim().length < 3) { setItems([]); setOpen(false); return; }
+    const v = version.current;
     timer.current = setTimeout(async () => {
       try {
         const res = await fetch("https://places.googleapis.com/v1/places:autocomplete", {
@@ -44,6 +49,7 @@ export default function StreetAutocomplete({
           headers: { "Content-Type": "application/json", "X-Goog-Api-Key": PLACES_KEY },
           body: JSON.stringify({ input: text, includedRegionCodes: ["us"], sessionToken: token() }),
         });
+        if (v !== version.current) return;
         if (!res.ok) { setItems([]); setOpen(false); return; }
         const data = (await res.json()) as { suggestions?: { placePrediction?: { placeId: string; text?: { text?: string } } }[] };
         const next = (data.suggestions ?? [])
@@ -51,9 +57,10 @@ export default function StreetAutocomplete({
           .filter((p): p is { placeId: string; text?: { text?: string } } => Boolean(p?.placeId))
           .slice(0, 5)
           .map((p) => ({ placeId: p.placeId, text: p.text?.text ?? "" }));
+        if (v !== version.current) return;
         setItems(next);
         setActive(-1);
-        setOpen(next.length > 0);
+        setOpen(next.length > 0 && document.activeElement === inputRef.current);
       } catch {
         setItems([]);
         setOpen(false);
@@ -62,6 +69,8 @@ export default function StreetAutocomplete({
   }
 
   async function pick(s: Suggestion) {
+    if (timer.current) clearTimeout(timer.current);
+    const v = ++version.current;
     setOpen(false);
     try {
       const res = await fetch(
@@ -69,9 +78,10 @@ export default function StreetAutocomplete({
         { headers: { "X-Goog-Api-Key": PLACES_KEY, "X-Goog-FieldMask": "addressComponents" } },
       );
       session.current = "";
-      if (!res.ok) return;
+      if (!res.ok || v !== version.current) return;
       const data = (await res.json()) as { addressComponents?: Parameters<typeof addressParts>[0] };
       const parts = addressParts(data.addressComponents);
+      if (v !== version.current) return;   // the visitor kept typing: keep their text
       if (inputRef.current && parts.street) inputRef.current.value = parts.street;
       onPick(parts);
     } catch {
@@ -94,8 +104,9 @@ export default function StreetAutocomplete({
         aria-controls="street_address-options"
         aria-activedescendant={active >= 0 ? `street_address-option-${active}` : undefined}
         aria-describedby={describedBy}
+        aria-invalid={invalid}
         className={className}
-        onChange={(e) => query(e.target.value)}
+        onChange={(e) => { version.current += 1; query(e.target.value); }}
         onBlur={() => setTimeout(() => setOpen(false), 150)}
         onKeyDown={(e) => {
           if (!open || items.length === 0) return;
