@@ -97,7 +97,7 @@ test("offer param defaults to per-lead and switches the source", () => {
 
 test("no env var: the lead goes to the default n8n webhook (Kevin 2026-10-12)", async () => {
   const { DEFAULT_WEBHOOK_URL } = await import("../src/lib/catering-leads.ts");
-  assert.match(DEFAULT_WEBHOOK_URL, /^https:\/\/cohesive-ai\.app\.n8n\.cloud\/webhook\/cai-catering-leads-[0-9a-f]{12}$/);
+  assert.equal(DEFAULT_WEBHOOK_URL, "https://cohesive-ai.app.n8n.cloud/webhook/cai-catering-leads-991ad10d836d");
   for (const env of [{}, { CATERING_LEADS_WEBHOOK_URL: "   " }]) {
     const f = fakeFetch();
     const res = await handleCateringLeadSubmission(valid, env, f, NOW);
