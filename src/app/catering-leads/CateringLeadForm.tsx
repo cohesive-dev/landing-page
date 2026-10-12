@@ -131,7 +131,7 @@ export default function CateringLeadForm({ offer }: { offer: OfferId }) {
           <p className="text-[1.15rem] font-medium">{DISQUALIFIED_MESSAGE}</p>
           <button
             type="button"
-            onClick={() => setPhase("form")}
+            onClick={() => { setErrors({}); setPhase("form"); }}
             className="mt-4 text-[0.85rem] text-[#5B6473] underline underline-offset-4 hover:text-[#0B1220] cursor-pointer"
           >
             Picked the wrong business type? Go back
