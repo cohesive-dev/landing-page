@@ -182,7 +182,7 @@ export default function CateringLeadForm({ offer }: { offer: OfferId }) {
     return (
       <Panel>
         <p className="text-[1.15rem] font-medium">Thanks - we got your details.</p>
-        <p className="mt-2 text-[#475569]">Last step: pick a time for a quick call to go over your plan before you pay anything.</p>
+        <p className="mt-2 text-[#475569]">Last step: book a live demo with our team so we can show you results for other restaurants/caterers we work with.</p>
         {bookingUrl && (
           <>
             {/* Kevin 2026-10-13: the scheduler is embedded so booking is one step (name/email prefilled). */}
