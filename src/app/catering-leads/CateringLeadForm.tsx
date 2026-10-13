@@ -12,7 +12,7 @@ import {
   validateLead,
   type CateringLeadInput,
   type OfferId,
-  type UtmKey, calendlyBookingUrl } from "@/lib/catering-leads";
+  type UtmKey, calendlyBookingUrl, calendlyEmbedUrl } from "@/lib/catering-leads";
 
 type Phase = "form" | "sending" | "done" | "disqualified" | "fallback";
 
@@ -33,6 +33,21 @@ export default function CateringLeadForm({ offer }: { offer: OfferId }) {
   const [phase, setPhase] = useState<Phase>("form");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [bookingUrl, setBookingUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (phase !== "done") return;
+    function onMessage(e: MessageEvent) {
+      if (e.origin !== "https://calendly.com") return;
+      const data = e.data as { event?: string } | null;
+      if (data?.event === "calendly.event_scheduled") {
+        const w = window as unknown as { fbq?: (...a: unknown[]) => void; dataLayer?: unknown[] };
+        w.fbq?.("track", "Schedule", { content_name: `catering-leads-${offer}` });
+        w.dataLayer?.push({ event: "catering_demo_booked", offer });
+      }
+    }
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, [phase, offer]);
   const formRef = useRef<HTMLFormElement>(null);
   const phaseRef = useRef<Phase>("form");
   const partialSent = useRef(false);
@@ -169,12 +184,22 @@ export default function CateringLeadForm({ offer }: { offer: OfferId }) {
         <p className="text-[1.15rem] font-medium">Thanks - we got your details.</p>
         <p className="mt-2 text-[#475569]">Last step: pick a time for a quick call to go over your plan before you pay anything.</p>
         {bookingUrl && (
-          <a
-            href={bookingUrl}
-            className="mt-5 inline-block rounded-full bg-[#0B1220] px-6 py-3 text-[0.95rem] font-medium text-white hover:opacity-90"
-          >
-            Book a time
-          </a>
+          <>
+            {/* Kevin 2026-10-13: the scheduler is embedded so booking is one step (name/email prefilled). */}
+            <iframe
+              title="Book a time"
+              src={calendlyEmbedUrl(bookingUrl)}
+              className="mt-5 w-full rounded-xl border border-black/10"
+              style={{ height: 700 }}
+              loading="eager"
+            />
+            <a
+              href={bookingUrl}
+              className="mt-4 inline-block text-[0.85rem] text-[#5B6473] underline underline-offset-4 hover:text-[#0B1220]"
+            >
+              Calendar not loading? Book a time here
+            </a>
+          </>
         )}
       </Panel>
     );

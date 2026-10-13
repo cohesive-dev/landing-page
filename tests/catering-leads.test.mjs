@@ -219,3 +219,15 @@ test("address parts from Google Places components", async () => {
   assert.deepEqual(parts, { street: "1600 Amphitheatre Pkwy", city: "Mountain View", state: "CA", zip: "94043" });
   assert.deepEqual(addressParts(undefined), { street: "", city: "", state: "", zip: "" });
 });
+
+test("calendly embed url keeps the prefill and adds the inline embed params", async () => {
+  const { calendlyBookingUrl, calendlyEmbedUrl } = await import("../src/lib/catering-leads.ts");
+  const u = new URL(calendlyEmbedUrl(calendlyBookingUrl({ fullName: "Ana Diaz", email: "Ana@Example.com", offer: "per-lead" })));
+  assert.equal(u.origin + u.pathname, "https://calendly.com/cohesiveapp/demo");
+  assert.equal(u.searchParams.get("name"), "Ana Diaz");
+  assert.equal(u.searchParams.get("email"), "ana@example.com");
+  assert.equal(u.searchParams.get("embed_domain"), "getcohesiveai.com");
+  assert.equal(u.searchParams.get("embed_type"), "Inline");
+  assert.equal(u.searchParams.get("hide_gdpr_banner"), "1");
+  assert.equal(u.searchParams.get("utm_source"), "catering-leads");
+});
