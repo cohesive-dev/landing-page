@@ -328,3 +328,12 @@ export function calendlyBookingUrl(input: { fullName?: string; email?: string; o
   if (input.utm?.utm_content) url.searchParams.set("utm_content", input.utm.utm_content);
   return url.toString();
 }
+
+// The same booking URL as an inline embed (Calendly's embed parameters; the embed posts calendly.* events to the page).
+export function calendlyEmbedUrl(bookingUrl: string, domain = "getcohesiveai.com"): string {
+  const url = new URL(bookingUrl);
+  url.searchParams.set("embed_domain", domain);
+  url.searchParams.set("embed_type", "Inline");
+  url.searchParams.set("hide_gdpr_banner", "1");
+  return url.toString();
+}
