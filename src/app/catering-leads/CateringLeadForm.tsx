@@ -164,7 +164,7 @@ export default function CateringLeadForm({ offer }: { offer: OfferId }) {
         const w = window as unknown as { fbq?: (...a: unknown[]) => void; dataLayer?: unknown[] };
         w.fbq?.("track", "Lead", { content_name: `catering-leads-${offer}` });
         w.dataLayer?.push({ event: "catering_lead", offer });
-        setBookingUrl(calendlyBookingUrl({ fullName: input.fullName, email: input.email, offer, utm: input.utm }));
+        setBookingUrl(calendlyBookingUrl({ fullName: input.fullName, email: input.email, phone: input.phone, offer, utm: input.utm }));
         setPhase("done");
       } else if (res.status === 400 && data.errors && Object.keys(data.errors).length) {
         setErrors(data.errors);

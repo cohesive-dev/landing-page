@@ -318,10 +318,12 @@ export async function handleCateringLeadSubmission(
 // team calls the ones who don't book).
 export const CALENDLY_DEMO_URL = "https://calendly.com/cohesiveapp/demo";
 
-export function calendlyBookingUrl(input: { fullName?: string; email?: string; offer: string; utm?: Record<string, string | undefined> }): string {
+export function calendlyBookingUrl(input: { fullName?: string; email?: string; phone?: string; offer: string; utm?: Record<string, string | undefined> }): string {
   const url = new URL(CALENDLY_DEMO_URL);
   if (input.fullName?.trim()) url.searchParams.set("name", input.fullName.trim());
   if (input.email?.trim()) url.searchParams.set("email", input.email.trim().toLowerCase());
+  // a1 = the demo event's first custom question, its required "phone number in case Google Meet fails" (10/13).
+  if (input.phone?.trim()) url.searchParams.set("a1", input.phone.trim());
   url.searchParams.set("utm_source", "catering-leads");
   url.searchParams.set("utm_medium", input.offer);
   if (input.utm?.utm_campaign) url.searchParams.set("utm_campaign", input.utm.utm_campaign);
