@@ -222,7 +222,8 @@ test("address parts from Google Places components", async () => {
 
 test("calendly embed url keeps the prefill and adds the inline embed params", async () => {
   const { calendlyBookingUrl, calendlyEmbedUrl } = await import("../src/lib/catering-leads.ts");
-  const u = new URL(calendlyEmbedUrl(calendlyBookingUrl({ fullName: "Ana Diaz", email: "Ana@Example.com", offer: "per-lead" })));
+  const u = new URL(calendlyEmbedUrl(calendlyBookingUrl({ fullName: "Ana Diaz", email: "Ana@Example.com", phone: "(212) 555-0100", offer: "per-lead" })));
+  assert.equal(u.searchParams.get("a1"), "(212) 555-0100");
   assert.equal(u.origin + u.pathname, "https://calendly.com/cohesiveapp/demo");
   assert.equal(u.searchParams.get("name"), "Ana Diaz");
   assert.equal(u.searchParams.get("email"), "ana@example.com");
