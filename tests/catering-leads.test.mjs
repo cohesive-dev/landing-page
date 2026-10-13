@@ -228,5 +228,6 @@ test("calendly embed url keeps the prefill and adds the inline embed params", as
   assert.equal(u.searchParams.get("email"), "ana@example.com");
   assert.equal(u.searchParams.get("embed_domain"), "getcohesiveai.com");
   assert.equal(u.searchParams.get("embed_type"), "Inline");
+  assert.equal(u.searchParams.get("hide_gdpr_banner"), "1");
   assert.equal(u.searchParams.get("utm_source"), "catering-leads");
 });
