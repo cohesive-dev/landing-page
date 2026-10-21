@@ -274,11 +274,8 @@ export default function RoofingLeadForm({ offer }: { offer: OfferId }) {
       </Field>
 
       <Field label="Street address" name="street_address" error={errors.street}>
-        <StreetAutocomplete className={inputClass} aria-describedby="street_address-hint" onPick={fillAddress} />
+        <StreetAutocomplete className={inputClass} onPick={fillAddress} />
       </Field>
-      <p id="street_address-hint" className="-mt-2 text-[0.8rem] text-[#5B6473]">
-        Your office or shop address. We look for property managers near you.
-      </p>
 
       <div className="grid grid-cols-6 gap-4">
         <div className="col-span-6 sm:col-span-3">
