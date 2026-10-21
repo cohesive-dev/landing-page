@@ -35,22 +35,8 @@ export default async function RoofingLeadsPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const offer = resolveOffer((await searchParams).offer);
-  const { headline, priceLine } = OFFERS[offer];
+  const { headline } = OFFERS[offer];
 
-  const faqs = [
-    {
-      q: "What does it cost?",
-      a: `${priceLine} Your plan depends on your business; we'll confirm before you pay anything.`,
-    },
-    {
-      q: "Who counts as a lead?",
-      a: "A property manager, HOA or building owner near you who replied that they want a roof inspection, estimate or quote. It is not a signed job.",
-    },
-    {
-      q: "Do I need to do anything?",
-      a: "Follow up with the leads we send you and quote the job.",
-    },
-  ];
 
   return (
     <div className="min-h-screen bg-[#FAF8F4] text-[#0B1220] flex flex-col">
@@ -81,17 +67,10 @@ export default async function RoofingLeadsPage({
                 We email property managers, HOAs and building owners near you and send you the
                 ones who want a roof quote.
               </p>
-              <p className="mt-4 text-[0.95rem] text-[#0B1220] font-medium">{priceLine}</p>
             </div>
 
             <div className="lg:col-span-6">
               <RoofingLeadForm offer={offer} />
-              {/* Kevin 2026-10-12: offer terms, very small gray text. */}
-              <p className="mt-4 text-[0.68rem] leading-snug text-[#5B6473]">
-                Offer Terms: This software discount is available regardless of whether you purchase insurance through
-                us. No insurance purchase or quote is required. Offer is subject to our standard customer qualification
-                and eligibility criteria.
-              </p>
             </div>
           </div>
         </section>
@@ -108,20 +87,6 @@ export default async function RoofingLeadsPage({
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-
-        <section className="px-6 lg:px-10 py-20">
-          <div className="max-w-[48rem] mx-auto">
-            <h2 className="text-[1.8rem] tracking-[-0.02em] font-medium mb-8">Questions</h2>
-            <dl className="divide-y divide-black/[0.08] border-y border-black/[0.08]">
-              {faqs.map((f) => (
-                <div key={f.q} className="py-6">
-                  <dt className="font-medium text-[1.05rem]">{f.q}</dt>
-                  <dd className="mt-2 text-[#475569] leading-[1.55]">{f.a}</dd>
-                </div>
-              ))}
-            </dl>
           </div>
         </section>
       </main>

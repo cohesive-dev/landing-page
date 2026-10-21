@@ -5,12 +5,12 @@
 
 export const OFFERS = {
   "per-lead": {
-    headline: "Get roofing leads from property managers near you",
-    priceLine: "About $30 a lead: $100 a month, usually 3-5 leads.",
+    headline: "Get roofing leads",
+    priceLine: "",
   },
   monthly: {
-    headline: "Get 3-5 roofing leads a month for $100",
-    priceLine: "$100 a month, usually 3-5 leads.",
+    headline: "Get roofing leads",
+    priceLine: "",
   },
 } as const;
 
@@ -194,7 +194,7 @@ type FetchLike = (
 export const SLACK_TOKEN_ENV_VAR = "ROOFING_LEADS_SLACK_BOT_TOKEN";
 export const SLACK_CHANNEL_ENV_VAR = "ROOFING_LEADS_SLACK_CHANNEL";
 
-const OFFER_LABEL: Record<string, string> = { "per-lead": "~$30/lead offer", monthly: "$100/mo offer" };
+const OFFER_LABEL: Record<string, string> = { "per-lead": "ad A", monthly: "ad B" };
 
 // The "Email:" line is read back by the booking checker (Calendly match), so keep it on its own line.
 export function slackLeadText(raw: RoofingLeadPayload): string {
