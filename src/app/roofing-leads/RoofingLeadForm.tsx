@@ -277,7 +277,7 @@ export default function RoofingLeadForm({ offer }: { offer: OfferId }) {
         <StreetAutocomplete className={inputClass} aria-describedby="street_address-hint" onPick={fillAddress} />
       </Field>
       <p id="street_address-hint" className="-mt-2 text-[0.8rem] text-[#5B6473]">
-        Caterers without a storefront: use the address you cook or work from.
+        Your office or shop address. We look for property managers near you.
       </p>
 
       <div className="grid grid-cols-6 gap-4">
