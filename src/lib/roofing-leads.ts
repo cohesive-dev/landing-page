@@ -31,7 +31,6 @@ export const BUSINESS_TYPES = [
   "Residential roofing",
   "Commercial roofing",
   "Residential and commercial roofing",
-  "Roof repair / maintenance",
   "I'm not a roofer",
 ] as const;
 
