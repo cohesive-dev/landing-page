@@ -63,7 +63,7 @@ test("a valid submission builds the expected payload and posts it once", async (
   assert.deepEqual(JSON.parse(f.calls[0].init.body), {
     source: "roofing-leads-monthly",
     offer: "monthly",
-    headline: "Get 3-5 roofing leads a month for $100",
+    headline: "Get roofing leads",
     full_name: "Maria Lopez",
     email: "maria@example.com",
     phone: "(555) 555-0100",
@@ -89,7 +89,7 @@ test("offer param defaults to per-lead and switches the source", () => {
   assert.equal(resolveOffer("bogus"), "per-lead");
   assert.equal(resolveOffer("toString"), "per-lead");
   assert.equal(resolveOffer(["monthly"]), "monthly");
-  assert.equal(OFFERS["per-lead"].headline, "Get roofing leads from property managers near you");
+  assert.equal(OFFERS["per-lead"].headline, "Get roofing leads");
   const p = buildLeadPayload({ ...valid, offer: "nope" }, NOW);
   assert.equal(p.source, "roofing-leads-per-lead");
   assert.equal(p.offer, "per-lead");
@@ -201,7 +201,7 @@ test("partial: a disqualified type is never forwarded", async () => {
 test("partial slack text says unfinished, skips empty lines, and does not claim a booking ask", async () => {
   const { slackLeadText, buildLeadPayload } = await import("../src/lib/roofing-leads.ts");
   const text = slackLeadText(buildLeadPayload({ partial: true, offer: "per-lead", email: "a@b.co" }, NOW));
-  assert.match(text, /^Partial roofing-leads signup \(website, ~\$30\/lead offer\)/);
+  assert.match(text, /^Partial roofing-leads signup \(website, ad A\)/);
   assert.doesNotMatch(text, /^New roofing-leads signup/m);
   assert.doesNotMatch(text, /^(Name|Phone|Business): *$/m);
   assert.doesNotMatch(text, /asked to book a demo/);
